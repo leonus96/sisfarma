@@ -15,7 +15,8 @@ class CreateActivePrinciplesTable extends Migration
     {
         Schema::create('active_principles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('description');
+            $table->string('nombre');
+            $table->string('descripcion');
             $table->timestamps();
         });
     }

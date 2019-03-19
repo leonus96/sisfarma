@@ -15,7 +15,7 @@ class CreateSaleDetailsTable extends Migration
     {
         Schema::create('sale_details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('quantity');
+            $table->integer('cantidad');
             $table->unsignedBigInteger('medicament_id');
             $table->unsignedBigInteger('sale_id');
 

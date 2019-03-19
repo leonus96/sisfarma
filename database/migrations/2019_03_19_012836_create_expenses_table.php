@@ -15,9 +15,9 @@ class CreateExpensesTable extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('description')->nullable();
-            $table->float('amount');
-            $table->date('date');
+            $table->text('descripcion')->nullable();
+            $table->float('monto_total');
+            $table->date('fecha');
             $table->timestamps();
         });
     }
