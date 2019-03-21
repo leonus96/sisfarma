@@ -17,3 +17,5 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 })->name('home');
+
+Route::resource('laboratory', 'LaboratoryController');

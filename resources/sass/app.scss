@@ -12,3 +12,21 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+.table td {
+    vertical-align: middle;
+}
+
+.table thead tr td {
+    text-align: center;
+    font-weight: bold;
+}
+
+.centered {
+    text-align: center;
+}
+
+.form-button {
+    display: inline-block;
+    margin: 0;
+}
