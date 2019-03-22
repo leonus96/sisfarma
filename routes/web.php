@@ -19,3 +19,4 @@ Route::get('/home', function () {
 })->name('home');
 
 Route::resource('laboratory', 'LaboratoryController');
+Route::resource('customer', 'CustomerController');

@@ -54,7 +54,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a href="#" class="nav-link">Principios Activos</a>
-                                <a href="#" class="nav-link">Clientes</a>
+                                <a href="{{ route('customer.index') }}" class="nav-link">Clientes</a>
                                 <a href="{{ route('laboratory.index') }}" class="nav-link">Laboratorios</a>
                             </div>
                         </li>
