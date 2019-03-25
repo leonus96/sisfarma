@@ -20,3 +20,9 @@ Route::get('/home', function () {
 
 Route::resource('laboratory', 'LaboratoryController');
 Route::resource('customer', 'CustomerController');
+Route::resource('sale', 'SaleController');
+Route::resource('inventory', 'InventoryController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') | TeraFarma</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    TeraFarma
+                    {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -38,27 +38,8 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Almacén</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Compras</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Ventas</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                               Mantenimiento de Tablas <span class="caret"></span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a href="#" class="nav-link">Principios Activos</a>
-                                <a href="{{ route('customer.index') }}" class="nav-link">Clientes</a>
-                                <a href="{{ route('laboratory.index') }}" class="nav-link">Laboratorios</a>
-                            </div>
-                        </li>
-                        {{-- @guest
+                        <!-- Authentication Links -->
+                        @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
@@ -84,8 +65,8 @@
                                         @csrf
                                     </form>
                                 </div>
-                            </li> --}}
-                        {{-- @endguest --}}
+                            </li>
+                        @endguest
                     </ul>
                 </div>
             </div>
