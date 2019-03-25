@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('pharmacy_id');
+            $table->unsignedBigInteger('pharmacy_id')->nullable();
             $table->boolean('admin_tera')->default(false);
 
             $table->foreign('pharmacy_id')->references('id')->on('pharmacies');
