@@ -15,6 +15,8 @@ class CreatePharmaciesTable extends Migration
     {
         Schema::create('pharmacies', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('ruc', 20)->unique();
+            $table->string('name');
             $table->timestamps();
         });
     }

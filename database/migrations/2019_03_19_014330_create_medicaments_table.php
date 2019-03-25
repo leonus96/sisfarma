@@ -15,18 +15,13 @@ class CreateMedicamentsTable extends Migration
     {
         Schema::create('medicaments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre');
             $table->text('descripcion')->nullable();
+            $table->string('unidad')->nullable();
             $table->unsignedBigInteger('laboratory_id')->nullable();
             $table->unsignedBigInteger('active_principle_id')->nullable();
-            $table->unsignedBigInteger('pharmacy_id');
-            $table->float('precio_costo');
-            $table->float('precio_publico');
-            $table->integer('stock');
 
-            $table->foreign('pharmacy_id')->references('id')->on('laboratories');
-            $table->foreign('laboratory_id')->references('id')->on('active_principles');
-            $table->foreign('active_principle_id')->references('id')->on('pharmacies');
+            $table->foreign('laboratory_id')->references('id')->on('laboratories');
+            $table->foreign('active_principle_id')->references('id')->on('active_principles');
             $table->timestamps();
         });
     }

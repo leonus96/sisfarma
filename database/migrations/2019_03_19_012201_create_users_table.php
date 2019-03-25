@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->unsignedBigInteger('pharmacy_id');
+            $table->boolean('admin_tera')->default(false);
 
             $table->foreign('pharmacy_id')->references('id')->on('pharmacies');
             $table->rememberToken();

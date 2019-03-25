@@ -18,6 +18,9 @@ class CreateExpensesTable extends Migration
             $table->text('descripcion')->nullable();
             $table->float('monto_total');
             $table->date('fecha');
+            $table->unsignedBigInteger('pharmacy_id');
+
+            $table->foreign('pharmacy_id')->references('id')->on('pharmacies');
             $table->timestamps();
         });
     }
