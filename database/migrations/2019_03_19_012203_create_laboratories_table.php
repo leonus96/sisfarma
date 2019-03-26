@@ -16,6 +16,8 @@ class CreateLaboratoriesTable extends Migration
         Schema::create('laboratories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
+            $table->unsignedBigInteger('pharmacy_id');
+            $table->foreign('pharmacy_id')->references('id')->on('pharmacies');
             $table->timestamps();
         });
     }

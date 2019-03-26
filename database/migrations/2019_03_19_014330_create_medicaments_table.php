@@ -19,7 +19,8 @@ class CreateMedicamentsTable extends Migration
             $table->string('unidad')->nullable();
             $table->unsignedBigInteger('laboratory_id')->nullable();
             $table->unsignedBigInteger('active_principle_id')->nullable();
-
+            $table->unsignedBigInteger('pharmacy_id');
+            $table->foreign('pharmacy_id')->references('id')->on('pharmacies');
             $table->foreign('laboratory_id')->references('id')->on('laboratories');
             $table->foreign('active_principle_id')->references('id')->on('active_principles');
             $table->timestamps();

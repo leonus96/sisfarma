@@ -14,7 +14,7 @@ class PharmaciesTableSeeder extends Seeder
         // Los datos de esta farmacia deben ser modificados para producción
         $pharmacy = [
             'ruc' => '12345678910',
-            'name' => 'Farmacia de Prueba',
+            'name' => 'Farmacia Castillo',
         ];
         DB::table('pharmacies')->insert($pharmacy);
 

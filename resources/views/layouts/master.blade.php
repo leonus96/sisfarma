@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Farmacia Castillo | SisFarma</title>
+    <title>{{ Auth::user()->pharmacy->name }} | SisFarma</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS -->
@@ -52,7 +52,7 @@
                     <i class="nav-icon fa fa-user"></i>
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Leticia Castillo</a>
+                    <a href="#" class="d-block">{{ Auth::user()->nombre }}</a>
                 </div>
             </div>
 
