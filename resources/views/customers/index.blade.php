@@ -46,12 +46,12 @@
                                 <td>Joseph León</td>
                                 <td>73033257</td>
                                 <td>
-                                    <button class="btn btn-primary">
+                                    <a href="#" class="btn btn-primary">
                                         <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-danger">
+                                    </a>
+                                    <a href="{{ URL::to('customer/' . 1 . '/edit') }}" class="btn btn-danger">
                                         <i class="fa fa-trash"></i>
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                             </tbody>

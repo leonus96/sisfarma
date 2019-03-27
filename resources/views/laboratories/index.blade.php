@@ -25,9 +25,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <button class="btn btn-success">
+                        <a href="{{route('laboratory.create')}}" class="btn btn-success">
                             <i class="fa fa-plus"></i> Agregar
-                        </button>
+                        </a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -44,12 +44,12 @@
                                 <td>Trident</td>
                                 <td>Nombre muy grande</td>
                                 <td>
-                                    <button class="btn btn-primary">
+                                    <a href="{{ URL::to('laboratory/' . 1 . '/edit') }}" class="btn btn-primary">
                                         <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-danger">
+                                    </a>
+                                    <a href="#" class="btn btn-danger">
                                         <i class="fa fa-trash"></i>
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                             </tbody>
