@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Laboratorios</h1>
+                    <h1 class="m-0 text-dark">Principios activos</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Laboratorio</a></li>
-                        <li class="breadcrumb-item active">Índice</li>
+                        <li class="breadcrumb-item"><a href="#">Inventario</a></li>
+                        <li class="breadcrumb-item active">Modificar</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -25,9 +25,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <button class="btn btn-success">
+                        <a href="{{route('principles.create')}}" class="btn btn-success">
                             <i class="fa fa-plus"></i> Agregar
-                        </button>
+                        </a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -36,20 +36,24 @@
                             <tr>
                                 <th>Código</th>
                                 <th>Nombre</th>
+                                <th>Descripción</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td>Trident</td>
-                                <td>Nombre muy grande</td>
+                                <td>Internet
+                                    Explorer 4.0
+                                </td>
+                                <td>Descripcion muy grande</td>
                                 <td>
                                     <button class="btn btn-primary">
                                         <i class="fa fa-edit"></i>
                                     </button>
-                                    <button class="btn btn-danger">
+                                    <a href="{{ URL::to('principles/' . 1 . '/edit') }}" class="btn btn-danger">
                                         <i class="fa fa-trash"></i>
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                             </tbody>
