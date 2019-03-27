@@ -25,9 +25,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <button class="btn btn-success">
+                        <a href="{{route('customer.create')}}" class="btn btn-success">
                             <i class="fa fa-plus"></i> Agregar
-                        </button>
+                        </a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -46,10 +46,10 @@
                                 <td>Joseph León</td>
                                 <td>73033257</td>
                                 <td>
-                                    <a href="#" class="btn btn-primary">
+                                    <a href="{{ URL::to('customer/' . 1 . '/edit') }}" class="btn btn-primary">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a href="{{ URL::to('customer/' . 1 . '/edit') }}" class="btn btn-danger">
+                                    <a href="#" class="btn btn-danger">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </td>

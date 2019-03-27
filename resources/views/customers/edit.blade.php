@@ -1,52 +1,49 @@
-@extends('layouts.app')
-
-@section('title', 'Editar Cliente')
+@extends('layouts.master')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">Editar Clientes</div>
-                <div class="card-body">
-                    <form method="POST" action="{{ route('customer.update', $customer->id) }}">
-                        @csrf
-                        @method('PATCH')
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Nombre del cliente:</label>
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Editar cliente</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Cliente</a></li>
+                        <li class="breadcrumb-item active">Editar</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $customer->name }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <form role="form">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input type="nombre" class="form-control" id="nombre" placeholder="Nombreo">
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="dni" class="col-md-4 col-form-label text-md-right">DNI de cliente:</label>
-
-                            <div class="col-md-6">
-                                <input id="dni" type="text" class="form-control{{ $errors->has('dni') ? ' is-invalid' : '' }}" name="dni" value="{{ $customer->dni }}" required autofocus>
-
-                                @if ($errors->has('dni'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('dni') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="form-group">
+                                <label for="dni">DNI</label>
+                                <input type="dni" class="form-control" id="dni" placeholder="DNI">
                             </div>
-                        </div>
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">Actualizar</button>
-                            </div>
+
+                        </div>                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Registrar</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+    <!-- /.content -->
 @endsection
