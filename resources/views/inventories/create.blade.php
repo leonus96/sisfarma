@@ -27,7 +27,8 @@
                     <div class="card-header">
                         <h3 class="card-title">Ingresar medicamento</h3>
                     </div>
-                    <form role="form">
+                    <form role="form" method="POST" action="{{ route('medicament.store') }}">
+                        @csrf
                         <div class="card-body">
                             <div class="form-group col-12">
                                 <label for="producto_descripcion">Descripción</label>
@@ -40,7 +41,7 @@
                                     <input type="text" class="form-control" id="producto_unidad" placeholder="Unidad">
                                 </div>
                                 <div class="form-group col-6">
-                                    <label for="producto_unidad">Laboratorio</label>
+                                    <label for="producto_laboratorio">Laboratorio</label>
                                     <input type="text" class="form-control" id="producto_laboratorio" placeholder="Laboratorio">
                                 </div>
                             </div>
@@ -50,16 +51,16 @@
                             </div>
                             <div class="row col-12">
                                 <div class="form-group col-4">
-                                    <label for="producto_unidad">Stock</label>
-                                    <input type="number" class="form-control" id="producto_unidad" placeholder="Unidad">
+                                    <label for="producto_stock">Stock</label>
+                                    <input type="number" class="form-control" id="producto_stock" placeholder="Stock">
                                 </div>
                                 <div class="form-group col-4">
-                                    <label for="producto_unidad">Precio de costo</label>
-                                    <input type="number" class="form-control" id="producto_laboratorio" placeholder="Laboratorio">
+                                    <label for="producto_precio_costo">Precio de costo</label>
+                                    <input type="number" class="form-control" id="producto_precio_costo" placeholder="Laboratorio">
                                 </div>
                                 <div class="form-group col-4">
-                                    <label for="producto_unidad">Precio público</label>
-                                    <input type="number" class="form-control" id="producto_laboratorio" placeholder="Laboratorio">
+                                    <label for="producto_precio_publico">Precio público</label>
+                                    <input type="number" class="form-control" id="producto_precio_publico" placeholder="Laboratorio">
                                 </div>
                             </div>
                             <div class="form-group col-12">

@@ -22,7 +22,7 @@ Route::resource('laboratory', 'LaboratoryController');
 Route::resource('customer', 'CustomerController');
 Route::resource('sale', 'SaleController');
 Route::resource('inventory', 'InventoryController');
-
+Route::resource('medicament', 'MedicamentController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
