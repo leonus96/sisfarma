@@ -24,18 +24,25 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <form role="form">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <input type="nombre" class="form-control" id="nombre" placeholder="Nombreo">
+                        <form role="form" method="POST" action="{{ route('laboratory.update', $laboratory->id) }}">
+                            @csrf
+                            @method('PATCH')
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input id="nombre" type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" name="nombre" value="{{ $laboratory->nombre }}" required autofocus>
+                                    @if ($errors->has('nombre'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('nombre') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Registrar</button>
-                        </div>
-                    </form>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Registrar</button>
+                            </div>
+                        </form>
                 </div>
             </div>
         </div>

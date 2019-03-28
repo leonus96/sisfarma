@@ -79,10 +79,10 @@ class LaboratoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $laboratory = Laboratory::find($id);
         $request->validate([
-            'nombre' => 'required|max:100|unique:laboratories,nombre, ' . $laboratory->id,
+            'nombre' => 'required|max:100|unique:laboratories,nombre, ' . $id,
         ]);
+        $laboratory = Laboratory::find($id);
         $laboratory->nombre = $request->get('nombre');
         $laboratory->save();
         return redirect('/laboratory')->with('succces', 'El laboratorio ha sido actualizado exitósamente.');

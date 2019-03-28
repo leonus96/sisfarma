@@ -8,7 +8,6 @@ class Laboratory extends Model
 {
     protected $fillable = [
         'nombre',
-        'pharmacy_id',
     ];
 
     public function medicaments() {

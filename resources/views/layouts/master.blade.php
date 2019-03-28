@@ -120,7 +120,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('laboratory.index')}}" class="nav-link">
+                        <a href="{{ route('laboratory.index') }}" class="nav-link">
                             <i class="nav-icon fa fa-flask"></i>
                             <p>Laboratorios</p>
                         </a>

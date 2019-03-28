@@ -19,14 +19,20 @@
     </div>
     <!-- /.content-header -->
 
+    @if(session()->get('success'))
+    <div class="alert alert-success">
+      {{ session()->get('success') }}
+    </div>
+    @endif
+
     <!-- Main content -->
     <section class="content">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{route('laboratory.create')}}" class="btn btn-success">
-                            <i class="fa fa-plus"></i> Agregar
+                        <a href="{{ route('laboratory.create') }}" class="btn btn-success">
+                            <i class="fa fa-plus"></i> Agregar Laboratorio
                         </a>
                     </div>
                     <!-- /.card-header -->
@@ -36,22 +42,26 @@
                             <tr>
                                 <th>Código</th>
                                 <th>Nombre</th>
-                                <th></th>
+                                <th>Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Trident</td>
-                                <td>Nombre muy grande</td>
+                            @foreach ($laboratories as $laboratory)
+                                <tr>
+                                <td>{{ $laboratory->id }}</td>
+                                <td>{{ $laboratory->nombre }}</td>
                                 <td>
-                                    <a href="{{ URL::to('laboratory/' . 1 . '/edit') }}" class="btn btn-primary">
+                                    <a href="{{ route('laboratory.edit', $laboratory->id) }}" class="btn btn-primary">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a href="#" class="btn btn-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
+                                    <form action="{{ route('laboratory.destroy', $laboratory->id) }}" method="POST" class="form-button">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+                                    </form>
                                 </td>
                             </tr>
+                            @endforeach
                             </tbody>
                             <tfoot>
                         </table>

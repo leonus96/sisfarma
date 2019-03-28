@@ -24,11 +24,17 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <form role="form">
+                    <form role="form" method="POST" action="{{ route('laboratory.store') }}">
+                        @csrf
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
-                                <input type="nombre" class="form-control" id="nombre" placeholder="Nombreo">
+                                <input id="nombre" type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" name="nombre" value="{{ old('nombre') }}" required autofocus>
+                                @if ($errors->has('nombre'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('nombre') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         <!-- /.card-body -->
