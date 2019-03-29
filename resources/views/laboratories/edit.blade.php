@@ -40,7 +40,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Registrar</button>
+                                <button type="submit" class="btn btn-primary">Actualizar</button>
                             </div>
                         </form>
                 </div>

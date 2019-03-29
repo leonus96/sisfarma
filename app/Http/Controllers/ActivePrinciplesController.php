@@ -36,7 +36,16 @@ class ActivePrinciplesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|max:100|unique:active_principles',
+            'descripcion' => 'required|max:250',
+        ]);
+        $principle = new ActivePrinciple([
+            'nombre' => $request->get('nombre'),
+            'descripcion' => $request->get('descripcion'),
+        ]);
+        $principle->save();
+        return redirect('/principle')->with('success', 'El principio activo ha sido añadido exitósamente.');
     }
 
     /**
@@ -58,8 +67,8 @@ class ActivePrinciplesController extends Controller
      */
     public function edit($id)
     {
-        $priciple = ActivePrinciple::find($id);
-        return view('active_principles.edit', compact('priciple'));
+        $principle = ActivePrinciple::find($id);
+        return view('active_principles.edit', compact('principle'));
     }
 
     /**
@@ -71,7 +80,15 @@ class ActivePrinciplesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|max:100|unique:active_principles,nombre, ' . $id,
+            'descripcion' => 'required|max:250',
+        ]);
+        $principle = ActivePrinciple::find($id);
+        $principle->nombre = $request->get('nombre');
+        $principle->descripcion = $request->get('descripcion');
+        $principle->save();
+        return redirect('/principle')->with('succces', 'El principio activo ha sido actualizado exitósamente.');
     }
 
     /**
@@ -82,6 +99,8 @@ class ActivePrinciplesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $principle = ActivePrinciple::find($id);
+        $principle->delete();
+        return redirect('/principle')->with('success', 'El principio activo ha sido eliminado exitosamente');
     }
 }

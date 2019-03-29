@@ -114,7 +114,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('principles.index')}}" class="nav-link">
+                        <a href="{{ route('principle.index') }}" class="nav-link">
                             <i class="nav-icon fa fa-vials"></i>
                             <p>Principios activos</p>
                         </a>

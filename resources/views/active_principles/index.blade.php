@@ -19,14 +19,20 @@
     </div>
     <!-- /.content-header -->
 
+    @if(session()->get('success'))
+    <div class="alert alert-success">
+      {{ session()->get('success') }}
+    </div>
+    @endif
+
     <!-- Main content -->
     <section class="content">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{route('principles.create')}}" class="btn btn-success">
-                            <i class="fa fa-plus"></i> Agregar
+                        <a href="{{ route('principle.create') }}" class="btn btn-success">
+                            <i class="fa fa-plus"></i> Agregar Principio Activo
                         </a>
                     </div>
                     <!-- /.card-header -->
@@ -37,25 +43,27 @@
                                 <th>Código</th>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
-                                <th></th>
+                                <th>Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Trident</td>
-                                <td>Internet
-                                    Explorer 4.0
-                                </td>
-                                <td>Descripcion muy grande</td>
-                                <td>
-                                    <button class="btn btn-primary">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <a href="{{ URL::to('principles/' . 1 . '/edit') }}" class="btn btn-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                @foreach ($principles as $principle)
+                                <tr>
+                                    <td>{{ $principle->id }}</td>
+                                    <td>{{ $principle->nombre }}</td>
+                                    <td>{{ $principle->descripcion }}</td>
+                                    <td>
+                                        <a href="{{ route('principle.edit', $principle->id) }}" class="btn btn-primary">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('principle.destroy', $principle->id) }}" method="POST" class="form-button">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                             <tfoot>
                         </table>

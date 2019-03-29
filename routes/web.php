@@ -24,7 +24,7 @@ Route::resource('sale', 'SaleController');
 Route::resource('inventory', 'InventoryController');
 Route::resource('medicament', 'MedicamentController');
 Route::resource('laboratory', 'LaboratoryController');
-Route::resource('principles', 'ActivePrinciplesController');
+Route::resource('principle', 'ActivePrinciplesController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

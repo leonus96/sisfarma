@@ -24,23 +24,35 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <form role="form">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <input type="nombre" class="form-control" id="nombre" placeholder="Nombreo">
+                        <form role="form" method="POST" action="{{ route('principle.update', $principle->id) }}">
+                            @csrf
+                            @method('PATCH')
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input id="nombre" type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" name="nombre" value="{{ $principle->nombre }}" required autofocus>
+                                    @if ($errors->has('nombre'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('nombre') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="descripcion">Descripción</label>
+                                    <input id="descripcion" type="text" class="form-control{{ $errors->has('descripcion') ? ' is-invalid' : '' }}" name="descripcion" value="{{ $principle->descripcion }}" required autofocus>
+                                    @if ($errors->has('descripcion'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('descripcion') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="descripcion">Descripción</label>
-                                <input type="descripcion" class="form-control" id="descripcion" placeholder="Descripcion">
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Actualizar</button>
                             </div>
-
-                        </div>                        <!-- /.card-body -->
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Registrar</button>
-                        </div>
-                    </form>
+                        </form>
                 </div>
             </div>
         </div>

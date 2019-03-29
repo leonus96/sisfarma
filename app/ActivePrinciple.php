@@ -10,6 +10,5 @@ class ActivePrinciple extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
-        'pharmacy_id',
     ];
 }
