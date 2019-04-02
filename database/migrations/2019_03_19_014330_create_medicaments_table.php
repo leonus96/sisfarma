@@ -17,8 +17,6 @@ class CreateMedicamentsTable extends Migration
             $table->bigIncrements('id');
             $table->text('descripcion')->nullable();
             $table->string('unidad')->nullable();
-            $table->decimal('precio_costo');
-            $table->decimal('precio_publico');
             $table->unsignedBigInteger('laboratory_id')->nullable();
             $table->unsignedBigInteger('active_principle_id')->nullable();
 
