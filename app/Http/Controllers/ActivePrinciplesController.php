@@ -13,33 +13,18 @@ class ActivePrinciplesController extends Controller
         'nombre' => 'required|max:100|unique:active_principles',
         'descripcion' => 'required|max:250',
     ];
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $principles = ActivePrinciple::all();
         return view('active_principles.index', compact('principles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('active_principles.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -54,36 +39,17 @@ class ActivePrinciplesController extends Controller
         return redirect('/principle')->with('success', 'El principio activo ha sido añadido exitósamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+      public function show($id)
     {
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $principle = ActivePrinciple::find($id);
         return view('active_principles.edit', compact('principle'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -97,12 +63,6 @@ class ActivePrinciplesController extends Controller
         return redirect('/principle')->with('succces', 'El principio activo ha sido actualizado exitósamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $principle = ActivePrinciple::find($id);

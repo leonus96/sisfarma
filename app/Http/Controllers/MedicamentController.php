@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\DB;
 class MedicamentController extends Controller
 {
 
+    public function index()
+    {
+        $medicament = Medicament::all();
+        return view('medicaments.index', compact('medicament'));
+    }
+
     public function create() {
         return view('medicaments.create');
     }

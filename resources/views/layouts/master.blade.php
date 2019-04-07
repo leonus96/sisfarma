@@ -131,6 +131,12 @@
                             <p>Clientes</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{route('medicament.index')}}" class="nav-link">
+                            <i class="nav-icon fa fa-pills"></i>
+                            <p>Medicamentos</p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
