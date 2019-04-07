@@ -7,33 +7,17 @@ use Illuminate\Http\Request;
 
 class ActivePrinciplesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $principles = ActivePrinciple::all();
         return view('active_principles.index', compact('principles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('active_principles.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -48,13 +32,7 @@ class ActivePrinciplesController extends Controller
         return redirect('/principle')->with('success', 'El principio activo ha sido añadido exitósamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+      public function show($id)
     {
 
     }
