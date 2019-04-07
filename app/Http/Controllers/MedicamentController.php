@@ -14,7 +14,7 @@ class MedicamentController extends Controller
 
     public function index()
     {
-        $medicamentos = Medicament::with('active_principle', 'laboratory')->get();
+        $medicamentos = Medicament::with('laboratory', 'activePrinciple')->get();
         return view('medicaments.index', compact('medicamentos'));
     }
 

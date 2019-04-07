@@ -27,7 +27,6 @@
                         </a>
                     </div>
                     <div class="card-body">
-                        <p>{{ $medicamentos }}</p>
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
@@ -43,8 +42,8 @@
                                 <tr>
                                     <td>{{ $medicamento->descripcion }}</td>
                                     <td>{{ $medicamento->unidad }}</td>
-                                    <td>{{ $medicamento->laboratory()->nombre }}</td>
-                                    <td>{{ $medicamento->activePrinciple()->nombre }}</td>
+                                    <td>{{ $medicamento->laboratory->nombre }}</td>
+                                    <td>{{ $medicamento['active_principle']}}</td>
                                     <td>
                                         <a href="{{ route('medicament.edit', $medicamento->id) }}" class="btn btn-primary">
                                             <i class="fa fa-edit"></i>
