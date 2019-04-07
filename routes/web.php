@@ -29,7 +29,8 @@ Route::get('select-medicament', 'MedicamentController@autocomplete');
 Route::resource('laboratory', 'LaboratoryController');
 Route::resource('principle', 'ActivePrinciplesController');
 Route::post('save_customer', 'CustomerController@ajaxStore');
-Route::post('save_laboratory', 'LaboratoryController@ajaxStore');
+Route::post('/save_laboratory', 'LaboratoryController@ajaxStore');
+Route::post('/save_active', 'ActivePrinciplesController@ajaxStore');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

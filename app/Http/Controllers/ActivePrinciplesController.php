@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
+use Illuminate\Support\Facades\Input;
 use App\ActivePrinciple;
 use Illuminate\Http\Request;
 
 class ActivePrinciplesController extends Controller
 {
+    protected $create_rules = [
+        'nombre' => 'required|max:100|unique:active_principles',
+        'descripcion' => 'required|max:250',
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -102,5 +108,19 @@ class ActivePrinciplesController extends Controller
         $principle = ActivePrinciple::find($id);
         $principle->delete();
         return redirect('/principle')->with('success', 'El principio activo ha sido eliminado exitosamente');
+    }
+
+    public function ajaxStore(Request $request) {
+        $validator = Validator::make(Input::all(), $this->create_rules);
+        if ($validator->fails()) {
+            return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+        } else {
+            $active = new ActivePrinciple([
+                'nombre' => $request->nombre,
+                'descripcion' => $request->descripcion,
+            ]);
+            $active->save();
+            return response()->json($active);
+        }
     }
 }
