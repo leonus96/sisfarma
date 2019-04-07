@@ -21,6 +21,7 @@ Route::get('/home', function () {
 
 Route::resource('laboratory', 'LaboratoryController');
 Route::resource('customer', 'CustomerController');
+Route::get('select-customer', 'CustomerController@autocomplete');
 Route::resource('sale', 'SaleController');
 Route::resource('inventory', 'InventoryController');
 Route::resource('medicament', 'MedicamentController');

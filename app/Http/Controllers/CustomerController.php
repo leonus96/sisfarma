@@ -6,6 +6,7 @@ use App\Customer;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -119,5 +120,18 @@ class CustomerController extends Controller
             $customer->save();
             return response()->json($customer);
         }
+    }
+
+    public function autocomplete(Request $request) {
+        $data = [];
+        if($request->query('q') != null) {
+            //dd($request->query('q')['term']);
+            $search = $request->query('q')['term'];
+            $data = DB::table('customers')
+                        ->select('id', 'nombre', 'dni')
+                        ->where('dni', 'LIKE', '%'.$search.'%')
+                        ->get();
+        }
+        return response()->json($data);
     }
 }

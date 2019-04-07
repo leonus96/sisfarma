@@ -62,16 +62,9 @@
                         <form role="form" class="row">
                             {{ csrf_field() }}
                             <div class="form-group col-12">
-                                <label for="cliente_search">Buscar cliente</label>
-                                <input type="text" class="form-control" id="cliente_search" placeholder="Ingrese DNI del cliente">
-                            </div>
-                            <div class="col-sm-12 col-md-8">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" disabled class="form-control" name="nombre" id="nombre">
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <label for="dni">DNI</label>
-                                <input type="text" disabled class="form-control" id="dni">
+                                <select name="" id="DNICustomer" class="DNICustomer form-control"></select>
+                                <!--<label for="cliente_search">Buscar cliente</label>
+                                <input type="text" class="form-control" id="cliente_search" placeholder="Ingrese DNI del cliente">-->
                             </div>
                         </form>
                     </div>
@@ -163,7 +156,6 @@
                 success: function(data) {
                     $('.error_name').hide();
                     $('.error_dni').hide();
-                    console.log(data);
                     if (data.errors) {
                         alert('😥, existen algunos errores de validación!')
                         $('.error_name').text(data.errors.nombre);
@@ -183,5 +175,35 @@
             });
         });
     });
+
+    $('.DNICustomer').select2({
+        placeholder: 'Busca por DNI',
+        ajax: {
+            url: '/select-customer',
+            datatype: 'json',
+            delay: 250,
+            data: function (term) {
+                console.log(term);
+                return {
+                    q: term
+                };
+            },
+            processResults: function (data) {
+                return{
+                    results: $.map(data, function (customer) {
+                        return {
+                            text: customer.nombre,
+                            id: customer.id,
+                        }
+                    })
+                };
+            },
+            cache: true,
+        },
+    });
+
+    /*$('#DNICustomer').change(function() {
+        $('#nombreCustomer').val()
+    });*/
 </script>
 @endsection
