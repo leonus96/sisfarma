@@ -28,7 +28,8 @@
                         <div class="card-body row">
                             <div class="form-group col-12">
                                 <label for="medicamento">Buscar medicamento</label>
-                                <input type="text" class="form-control" id="medicamento" placeholder="Ingresa medicamento o principio activo a buscar">
+                                <select name="" id="selectInventoty" class="selectInventory form-control"></select>
+                                <input type="text" id="medicamento" placeholder="Ingresa medicamento o principio activo a buscar" style="display:none;">
                             </div>
                             <div class="form-group col-10">
                                 <label for="medicamento">Medicamento</label>
@@ -174,6 +175,32 @@
                 },
             });
         });
+    });
+
+    $('.selectInventory').select2({
+        placeholder: 'Busca medicamento',
+        ajax: {
+            url: '/select-inventory',
+            datatype: 'json',
+            delay: 250,
+            data: function (term) {
+                console.log(term);
+                return {
+                    q: term
+                };
+            },
+            processResults: function (data) {
+                return{
+                    results: $.map(data, function (inventory) {
+                        return {
+                            text: inventory.nombre,
+                            id: inventory.id,
+                        }
+                    })
+                };
+            },
+            cache: true,
+        },
     });
 
     $('.DNICustomer').select2({

@@ -6,6 +6,8 @@ use Validator;
 use Illuminate\Support\Facades\Input;
 use App\ActivePrinciple;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class ActivePrinciplesController extends Controller
 {
@@ -82,5 +84,18 @@ class ActivePrinciplesController extends Controller
             $active->save();
             return response()->json($active);
         }
+    }
+
+    public function autocomplete(Request $request) {
+        $data = [];
+        if($request->query('q') != null) {
+            //dd($request->query('q')['term']);
+            $search = $request->query('q')['term'];
+            $data = DB::table('active_principles')
+                        ->select('id', 'nombre')
+                        ->where('nombre', 'LIKE', '%'.$search.'%')
+                        ->get();
+        }
+        return response()->json($data);
     }
 }

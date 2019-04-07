@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Inventory;
 use Illuminate\Http\Request;
 use App\Pharmacy;
+use Illuminate\Support\Facades\DB;
 use App\Expense;
 use Carbon\Carbon;
 
@@ -114,5 +115,19 @@ class InventoryController extends Controller
         $inventory = Inventory::find($id);
         $inventory->delete();
         return redirect('/inventory')->with('success', 'El producto se eliminó del inventario.');
+    }
+
+    public function autocomplete(Request $request) {
+        $data = [];
+        if($request->query('q') != null) {
+            //dd($request->query('q')['term']);
+            $search = $request->query('q')['term'];
+            $data = DB::table('inventories')
+                        ->join('medicaments', 'medicaments.id', '=', 'inventories.medicament_id')
+                        ->select('medicaments.descripcion', 'medicaments.unidad', 'inventories.stock', 'inventories.precio_publico')
+                        ->where('medicaments.descripcion', 'LIKE', '%'.$search.'%')
+                        ->get();
+        }
+        return response()->json($data);
     }
 }

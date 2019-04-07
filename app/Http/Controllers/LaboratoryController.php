@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\Input;
 use App\Laboratory;
+use Illuminate\Support\Facades\DB;
 
 class LaboratoryController extends Controller
 {
@@ -76,5 +77,18 @@ class LaboratoryController extends Controller
             $laboratory->save();
             return response()->json($laboratory);
         }
+    }
+
+    public function autocomplete(Request $request) {
+        $data = [];
+        if($request->query('q') != null) {
+            //dd($request->query('q')['term']);
+            $search = $request->query('q')['term'];
+            $data = DB::table('laboratories')
+                        ->select('id', 'nombre')
+                        ->where('nombre', 'LIKE', '%'.$search.'%')
+                        ->get();
+        }
+        return response()->json($data);
     }
 }

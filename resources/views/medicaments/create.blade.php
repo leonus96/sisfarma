@@ -40,7 +40,8 @@
                                 <div class="form-group col-6">
                                         <label for="producto_laboratorio" class="mt-1">Laboratorio</label>
                                         <button type="button" class="btn btn-sm btn-success mb-2 ml-1" data-toggle="modal" data-target="#new_laboratory_modal">Nuevo</button>
-                                    <input type="text" class="form-control" id="producto_laboratorio" placeholder="Laboratorio">
+                                        <select name="selectLaboratory" id="selectLaboratory" class="selectLaboratory form-control"></select>
+                                    <input type="text" class="form-control" style="display:none;" id="producto_laboratorio" placeholder="Laboratorio">
                                 </div>
                             </div>
                             <div class="form-group col-12">
@@ -48,7 +49,8 @@
                                     <label for="producto_principio_activo" class="mt-1">Principio activo</label>
                                     <button type="button" class="btn btn-sm btn-success mb-2 ml-1" data-toggle="modal" data-target="#new_active_modal">Nuevo</button>
                                 </div>
-                                <input type="text" class="form-control" id="producto_principio_activo" placeholder="Principio activo">
+                                <select name="selectPrinciple" id="selectPrinciple" class="selectPrinciple form-control"></select>
+                                <input type="text" class="form-control" style="display:none;" id="producto_principio_activo" placeholder="Principio activo">
                             </div>
                         </div>
                         <div class="card-footer">
@@ -193,6 +195,59 @@
                 },
             });
         });
+    });
+
+
+    $('.selectLaboratory').select2({
+        placeholder: 'Busca laboratorio',
+        ajax: {
+            url: '/select-laboratory',
+            datatype: 'json',
+            delay: 250,
+            data: function (term) {
+                console.log(term);
+                return {
+                    q: term
+                };
+            },
+            processResults: function (data) {
+                return{
+                    results: $.map(data, function (laboratory) {
+                        return {
+                            text: laboratory.nombre,
+                            id: laboratory.id,
+                        }
+                    })
+                };
+            },
+            cache: true,
+        },
+    });
+
+    $('.selectPrinciple').select2({
+        placeholder: 'Busca principio activo',
+        ajax: {
+            url: '/select-principle',
+            datatype: 'json',
+            delay: 250,
+            data: function (term) {
+                console.log(term);
+                return {
+                    q: term
+                };
+            },
+            processResults: function (data) {
+                return{
+                    results: $.map(data, function (principle) {
+                        return {
+                            text: principle.nombre,
+                            id: principle.id,
+                        }
+                    })
+                };
+            },
+            cache: true,
+        },
     });
 </script>
 @endsection

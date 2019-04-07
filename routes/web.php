@@ -20,14 +20,17 @@ Route::get('/home', function () {
 })->name('home');
 
 Route::resource('laboratory', 'LaboratoryController');
+Route::get('select-laboratory', 'LaboratoryController@autocomplete');
 Route::resource('customer', 'CustomerController');
 Route::get('select-customer', 'CustomerController@autocomplete');
 Route::resource('sale', 'SaleController');
 Route::resource('inventory', 'InventoryController');
+Route::get('select-inventory', 'InventoryController@autocomplete');
 Route::resource('medicament', 'MedicamentController');
 Route::get('select-medicament', 'MedicamentController@autocomplete');
 Route::resource('laboratory', 'LaboratoryController');
 Route::resource('principle', 'ActivePrinciplesController');
+Route::get('select-principle', 'ActivePrinciplesController@autocomplete');
 Route::post('save_customer', 'CustomerController@ajaxStore');
 Route::post('/save_laboratory', 'LaboratoryController@ajaxStore');
 Route::post('/save_active', 'ActivePrinciplesController@ajaxStore');
