@@ -161,7 +161,7 @@
                         setTimeout(function() {
                             $('.error_name').hide();
                             $('.error_dni').hide();
-                        }, 2500);
+                        }, 5000);
                     } else {
                         alert('😄, cliente registrado exitosamente!')
                         $('#new_client_modal').modal('toggle');

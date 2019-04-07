@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Validator;
 use Illuminate\Support\Facades\Input;
 use App\Laboratory;
@@ -12,7 +11,6 @@ class LaboratoryController extends Controller
 {
     protected $create_rules = [
         'nombre' => 'required|max:100',
-        'dni' => 'required|min:8|max:8|unique:customers',
     ];
 
     public function index()

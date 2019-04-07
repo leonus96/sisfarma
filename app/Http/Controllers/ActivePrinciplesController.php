@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
+use Illuminate\Support\Facades\Input;
 use App\ActivePrinciple;
 use Illuminate\Http\Request;
 
 class ActivePrinciplesController extends Controller
 {
+    protected $create_rules = [
+        'nombre' => 'required|max:100|unique:active_principles',
+        'descripcion' => 'required|max:250',
+    ];
+
     public function index()
     {
         $principles = ActivePrinciple::all();
@@ -37,25 +44,12 @@ class ActivePrinciplesController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $principle = ActivePrinciple::find($id);
         return view('active_principles.edit', compact('principle'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -69,16 +63,24 @@ class ActivePrinciplesController extends Controller
         return redirect('/principle')->with('succces', 'El principio activo ha sido actualizado exitósamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $principle = ActivePrinciple::find($id);
         $principle->delete();
         return redirect('/principle')->with('success', 'El principio activo ha sido eliminado exitosamente');
+    }
+
+    public function ajaxStore(Request $request) {
+        $validator = Validator::make(Input::all(), $this->create_rules);
+        if ($validator->fails()) {
+            return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+        } else {
+            $active = new ActivePrinciple([
+                'nombre' => $request->nombre,
+                'descripcion' => $request->descripcion,
+            ]);
+            $active->save();
+            return response()->json($active);
+        }
     }
 }

@@ -9,9 +9,6 @@ class Medicament extends Model
     protected $fillable = [
         'descripcion',
         'unidad',
-        'stock',
-        'precio_costo',
-        'precio_publico',
         'laboratory_id',
         'active_principle_id',
     ];
