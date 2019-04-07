@@ -11,12 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class MedicamentController extends Controller
 {
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+    public function create() {
+        return view('medicaments.create');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
