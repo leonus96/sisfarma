@@ -55,26 +55,26 @@
                     <div class="card-header">
                         <h3 class="card-title">Cliente</h3>
                     </div>
-                    <form role="form">
-                        <div class="card-body row">
+                    <div class="card-body">
+                        <div class="row">
+                            <button type="button" class="btn btn-primary ml-3 mb-3" data-toggle="modal" data-target="#new_client_modal">Registrar nuevo cliente</button>
+                        </div>
+                        <form role="form" class="row">
+                            {{ csrf_field() }}
                             <div class="form-group col-12">
-                                <label for="cliente">Buscar cliente</label>
-                                <input type="text" class="form-control" id="cliente" placeholder="Ingrese DNI del cliente">
+                                <label for="cliente_search">Buscar cliente</label>
+                                <input type="text" class="form-control" id="cliente_search" placeholder="Ingrese DNI del cliente">
                             </div>
-                            <div class="form-check col-9">
-                                <input type="checkbox" class="form-check-input" name="agregar_cliente" id="agregar_cliente">
-                                <label class="form-check-label" for="agregar_cliente">¿Agregar nuevo cliente?</label>
-                            </div>
-                            <div class="col-9">
+                            <div class="col-sm-12 col-md-8">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" disabled class="form-control" id="nombre">
+                                <input type="text" disabled class="form-control" name="nombre" id="nombre">
                             </div>
-                            <div class="col-3">
+                            <div class="col-sm-6 col-md-4">
                                 <label for="dni">DNI</label>
                                 <input type="text" disabled class="form-control" id="dni">
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="col-7">
@@ -82,7 +82,6 @@
                     <div class="card-header">
                         <h3 class="card-title">Pedido</h3>
                     </div>
-                    <!-- /.card-header -->
                     <div class="card-body">
                         <table id="pedido" class="table table-bordered table-hover">
                             <thead>
@@ -106,22 +105,83 @@
                             <tfoot>
                         </table>
                     </div>
-                    <!-- /.card-body -->
-                    <!-- card-footer -->
                     <div class="card-footer">
                         <button type="submit" class="btn btn-success">Vender</button>
                     </div>
-                    <!-- /.card-footer -->
                 </div>
-                <!-- /.card -->
             </div>
         </div>
     </section>
     <!-- /.content -->
+    <div class="modal fade" id="new_client_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Registrar Nuevo Cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="new_client_form">
+                    <div class="modal-body row">
+                        <div class="form-group col-12">
+                            <label for="new_client_name">Nombre</label>
+                            <input required type="text" class="form-control" id="new_client_name">
+                            <p class="modal_error error_name alert alert-danger hidden"></p>
+                        </div>
+                        <div class="col-8">
+                            <label for="new_client_dni">DNI</label>
+                            <input required type="text" class="form-control" id="new_client_dni" placeholder="Ingrese DNI de 8 dígitos">
+                            <p class="modal_error error_dni alert alert-danger hidden"></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
 <script>
-    console.log('HOLA CARAJO');
+    $(document).ready(function() {
+        $('.error_name').hide();
+        $('.error_dni').hide();
+        $('#new_client_form').on('submit', function(e){
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: 'save_customer',
+                data: {
+                    '_token': $('input[name=_token]').val(),
+                    'nombre': $('#new_client_name').val(),
+                    'dni': $('#new_client_dni').val(),
+                },
+                success: function(data) {
+                    $('.error_name').hide();
+                    $('.error_dni').hide();
+                    console.log(data);
+                    if (data.errors) {
+                        alert('😥, existen algunos errores de validación!')
+                        $('.error_name').text(data.errors.nombre);
+                        $('.error_dni').text(data.errors.dni);
+                        $('.error_name').show();
+                        $('.error_dni').show();
+                    } else {
+                        alert('😄, cliente registrado exitosamente!')
+                        $('#new_client_modal').modal('toggle');
+                        $('#new_client_name').val('');
+                        $('#new_client_dni').val('');
+                    }
+                },
+                error: function(errors) {
+                    console.log(errors);
+                },
+            });
+        });
+    });
 </script>
 @endsection
