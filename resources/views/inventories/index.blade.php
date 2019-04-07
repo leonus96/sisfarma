@@ -1,63 +1,73 @@
 @extends('layouts.master')
 
 @section('content')
-    <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark">Inventario de medicamentos</h1>
-                </div><!-- /.col -->
+                </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Inventario</a></li>
                         <li class="breadcrumb-item active">Modificar</li>
                     </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.content-header -->
 
-    <!-- Main content -->
+    @if(session()->get('success'))
+        <div class="alert alert-success">
+        {{ session()->get('success') }}
+        </div>
+    @endif
+
     <section class="content">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Medicamentos</h3>
+                        <a href="{{ route('inventory.create') }}" class="btn btn-success">
+                            <i class="fa fa-plus"></i> Agregar nuevo producto al inventario
+                        </a>
                     </div>
-                    <!-- /.card-header -->
                     <div class="card-body">
                         <table id="pedido" class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>Código</th>
-                                <th>Descripción</th>
-                                <th>Unidad</th>
-                                <th>Precio</th>
+                                <th>Medicamento</th>
                                 <th>Cantidad</th>
+                                <th>Precio costo</th>
+                                <th>Precio público</th>
+                                <th>Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Trident</td>
-                                <td>Internet
-                                    Explorer 4.0
-                                </td>
-                                <td>Win 95+</td>
-                                <td> 4</td>
-                                <td>X</td>
-                            </tr>
+                                @foreach($inventories as $inventory)
+                                <tr>
+                                    <td>{{ $inventory->medicament->descripcion }}</td>
+                                    <td>{{ $inventory->stock }}</td>
+                                    <td>{{ $inventory->precio_costo }}</td>
+                                    <td>{{ $inventory->precio_publico }}</td>
+                                    <td>
+                                        <a href="{{ route('inventory.edit', $inventory->id) }}" class="btn btn-primary">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('inventory.destroy', $inventory->id) }}" method="POST" class="form-button">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                             <tfoot>
                         </table>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
             </div>
         </div>
     </section>
-    <!-- /.content -->
 @endsection
