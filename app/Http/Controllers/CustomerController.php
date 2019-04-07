@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use Illuminate\Http\Request;
+use Validator;
+use Illuminate\Support\Facades\Input;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $create_rules = [
+        'nombre' => 'required|max:100',
+        'dni' => 'required|min:8|max:8|unique:customers',
+    ];
+
     public function index()
     {
         $customers = Customer::all();
@@ -37,11 +39,11 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'max:100',
+            'nombre' => 'required|max:100',
             'dni' => 'required|min:8|max:8|unique:customers',
         ]);
         $customer = new Customer([
-            'name' => $request->get('name'),
+            'nombre' => $request->get('nombre'),
             'dni' => $request->get('dni'),
         ]);
         $customer->save();
@@ -102,5 +104,20 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
         $customer->delete();
         return redirect('/customer')->with('sucess', 'Cliente eliminado');
+    }
+
+    public function ajaxStore(Request $request)
+    {
+        $validator = Validator::make(Input::all(), $this->create_rules);
+        if ($validator->fails()) {
+            return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+        } else {
+            $customer = new Customer([
+                'nombre' => $request->nombre,
+                'dni' => $request->dni,
+            ]);
+            $customer->save();
+            return response()->json($customer);
+        }
     }
 }
