@@ -26,6 +26,7 @@ Route::resource('medicament', 'MedicamentController');
 Route::resource('laboratory', 'LaboratoryController');
 Route::resource('principle', 'ActivePrinciplesController');
 Route::post('save_customer', 'CustomerController@ajaxStore');
+Route::post('save_laboratory', 'LaboratoryController@ajaxStore');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
