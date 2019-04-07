@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Inventory;
 use Illuminate\Http\Request;
+use App\Pharmacy;
 
 class InventoryController extends Controller
 {
@@ -36,7 +37,29 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'medicament_id' => 'required',
+            'stock' => 'required',
+            'precio_costo' => 'required',
+            'precio_publico' => 'required',
+            'gasto' => 'required',
+        ]);
+
+        dd($request);
+
+        $inventory = new Inventory([
+            'stock' => $request->get('stock'),
+            'precio_costo' => $request->get('precio_costo'),
+            'precio_publico' => $request->get('precio_publico'),
+            'medicament_id' => $request->get('medicament_id'),
+            'pharmacy_id' => Pharmacy::ID,
+        ]);
+
+        /*if($request->get('gasto')) {
+
+        }*/
+        $inventory->save();
+        return redirect('/inventory')->with('success', 'Inventario registrado exitósamente.');
     }
 
     /**

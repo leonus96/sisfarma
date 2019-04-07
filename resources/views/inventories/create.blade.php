@@ -24,32 +24,31 @@
                     <div class="card-header">
                         <h3 class="card-title">Ingresar medicamento</h3>
                     </div>
-                    <form role="form" method="POST" action="{{ route('medicament.store') }}">
+                    <form role="form" method="POST" action="{{ route('inventory.store') }}">
                         @csrf
                         <div class="card-body">
                             <div class="form-group col-12">
-                                <select name="medicamentDescription" class="medicamentDescription form-control"></select>
+                                <select id="medicamentDescription" class="medicamentDescription form-control"></select>
                             </div>
-                            <!--<label for="producto_descripcion">Descripción</label>
-                            <input type="text" class="form-control" id="producto_descripcion" placeholder="Descripción">-->
+                            <input type="number" style="display:none;" name="medicament_id" id="medicament_id">
                             <div class="row col-12">
                                 <div class="form-group col-4">
                                     <label for="producto_stock">Stock</label>
-                                    <input type="number" class="form-control" id="producto_stock" placeholder="Stock">
+                                    <input type="number" class="form-control" id="producto_stock" placeholder="Stock" name="stock">
                                 </div>
                                 <div class="form-group col-4">
                                     <label for="producto_precio_costo">Precio de costo</label>
-                                    <input type="number" class="form-control" id="producto_precio_costo" placeholder="Laboratorio">
+                                    <input type="number" class="form-control" id="producto_precio_costo" placeholder="Laboratorio" name="precio_costo">
                                 </div>
                                 <div class="form-group col-4">
                                     <label for="producto_precio_publico">Precio público</label>
-                                    <input type="number" class="form-control" id="producto_precio_publico" placeholder="Laboratorio">
+                                    <input type="number" class="form-control" id="producto_precio_publico" placeholder="Laboratorio" name="preio_publico">
                                 </div>
                             </div>
                             <div class="form-group col-12">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                    <label class="form-check-label" for="exampleCheck2">Ingresar como gasto</label>
+                                    <label class="form-check-label" for="exampleCheck2" name="gasto">Ingresar como gasto</label>
                                 </div>
                             </div>
                         </div>
@@ -61,35 +60,6 @@
             </div>
         </div>
     </section>
-
-    {{-- Add Laboratory Modal --}}
-    <div class="modal fade ultramodal" id="new_laboratory_modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Registrar Nuevo Laboratorio</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form id="new_laboratory_form">
-                    <div class="modal-body row">
-                        <div class="form-group col-12">
-                            <label for="new_laboratory_name">Nombre</label>
-                            <input required type="text" class="form-control" id="new_laboratory_name">
-                            <p class="modal_error error_laboratory_name alert alert-danger"></p>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Confirmar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    {{-- Add Active Principle Modal --}}
 @endsection
 
 @section('script')
@@ -150,6 +120,10 @@
             },
             cache: true,
         },
+    });
+
+    $('#medicamentDescription').change(function () {
+        $('#medicament_id').val($('#medicamentDescription').select2('data')[0].id);
     });
 </script>
 @endsection
