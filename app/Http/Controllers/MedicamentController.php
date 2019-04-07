@@ -14,8 +14,8 @@ class MedicamentController extends Controller
 
     public function index()
     {
-        $medicament = Medicament::all();
-        return view('medicaments.index', compact('medicament'));
+        $medicamentos = Medicament::with('active_principle', 'laboratory')->get();
+        return view('medicaments.index', compact('medicamentos'));
     }
 
     public function create() {
@@ -72,35 +72,17 @@ class MedicamentController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $medicament = Medicament::find($id);
+        return view('medicaments.edit', compact($medicament));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

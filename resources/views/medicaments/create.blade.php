@@ -50,26 +50,6 @@
                                 </div>
                                 <input type="text" class="form-control" id="producto_principio_activo" placeholder="Principio activo">
                             </div>
-                            <div class="row col-12">
-                                <div class="form-group col-4">
-                                    <label for="producto_stock">Stock</label>
-                                    <input type="number" class="form-control" id="producto_stock" placeholder="Stock">
-                                </div>
-                                <div class="form-group col-4">
-                                    <label for="producto_precio_costo">Precio de costo</label>
-                                    <input type="number" class="form-control" id="producto_precio_costo" placeholder="Laboratorio">
-                                </div>
-                                <div class="form-group col-4">
-                                    <label for="producto_precio_publico">Precio público</label>
-                                    <input type="number" class="form-control" id="producto_precio_publico" placeholder="Laboratorio">
-                                </div>
-                            </div>
-                            <div class="form-group col-12">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                    <label class="form-check-label" for="exampleCheck2">Ingresar como gasto</label>
-                                </div>
-                            </div>
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Añadir medicamento</button>
