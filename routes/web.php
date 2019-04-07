@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\MedicamentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,7 @@ Route::resource('customer', 'CustomerController');
 Route::resource('sale', 'SaleController');
 Route::resource('inventory', 'InventoryController');
 Route::resource('medicament', 'MedicamentController');
+Route::get('select-medicament', 'MedicamentController@autocomplete');
 Route::resource('laboratory', 'LaboratoryController');
 Route::resource('principle', 'ActivePrinciplesController');
 Route::post('save_customer', 'CustomerController@ajaxStore');

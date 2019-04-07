@@ -7,6 +7,7 @@ use App\Medicament;
 use App\Laboratory;
 use App\Pharmacy;
 use App\ActivePrinciple;
+use Illuminate\Support\Facades\DB;
 
 class MedicamentController extends Controller
 {
@@ -98,5 +99,18 @@ class MedicamentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function autocomplete(Request $request) {
+        $data = [];
+        if($request->query('q') != null) {
+            //dd($request->query('q')['term']);
+            $search = $request->query('q')['term'];
+            $data = DB::table('medicaments')
+                        ->select('id', 'descripcion', 'unidad')
+                        ->where('descripcion', 'LIKE', '%'.$search.'%')
+                        ->get();
+        }
+        return response()->json($data);
     }
 }
