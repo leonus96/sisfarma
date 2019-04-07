@@ -35,20 +35,35 @@
                                 <div class="form-group col-4">
                                     <label for="producto_stock">Stock</label>
                                     <input type="number" class="form-control" id="producto_stock" placeholder="Stock" name="stock">
+                                    @if ($errors->has('stock'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('stock') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group col-4">
                                     <label for="producto_precio_costo">Precio de costo</label>
-                                    <input type="number" class="form-control" id="producto_precio_costo" placeholder="Laboratorio" name="precio_costo">
+                                    <input type="text" class="form-control" id="producto_precio_costo" placeholder="Laboratorio" name="precio_costo">
+                                    @if ($errors->has('precio_costo'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('precio_costo') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group col-4">
                                     <label for="producto_precio_publico">Precio público</label>
-                                    <input type="number" class="form-control" id="producto_precio_publico" placeholder="Laboratorio" name="preio_publico">
+                                    <input type="text" class="form-control" id="producto_precio_publico" placeholder="Laboratorio" name="precio_publico">
+                                    @if ($errors->has('precio_publico'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('precio_publico') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-group col-12">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                    <label class="form-check-label" for="exampleCheck2" name="gasto">Ingresar como gasto</label>
+                                    <input type="checkbox" class="form-check-input" name="gasto">
+                                    <label class="form-check-label">Ingresar como gasto</label>
                                 </div>
                             </div>
                         </div>

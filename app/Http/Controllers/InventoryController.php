@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Inventory;
 use Illuminate\Http\Request;
 use App\Pharmacy;
+use App\Expense;
+use Carbon\Carbon;
 
 class InventoryController extends Controller
 {
@@ -15,7 +17,7 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $inventories = Inventory::all();
+        $inventories = Inventory::with('medicament')->get();
         return view('inventories.index', compact('inventories'));
     }
 
@@ -42,10 +44,7 @@ class InventoryController extends Controller
             'stock' => 'required',
             'precio_costo' => 'required',
             'precio_publico' => 'required',
-            'gasto' => 'required',
         ]);
-
-        dd($request);
 
         $inventory = new Inventory([
             'stock' => $request->get('stock'),
@@ -54,12 +53,20 @@ class InventoryController extends Controller
             'medicament_id' => $request->get('medicament_id'),
             'pharmacy_id' => Pharmacy::ID,
         ]);
-
-        /*if($request->get('gasto')) {
-
-        }*/
         $inventory->save();
-        return redirect('/inventory')->with('success', 'Inventario registrado exitósamente.');
+
+        if ($request->get('gasto')) {
+            $expense = new Expense([
+                'descripcion' => $inventory->medicament->descripcion,
+                'monto_total' => $inventory->precio_costo * $inventory->stock,
+                'fecha' => Carbon::now(),
+                'pharmacy_id' => Pharmacy::ID,
+            ]);
+            $expense->save();
+            return redirect('/inventory')->with('success', 'El producto se registró correctamente en el inventario y además como gasto.');
+        }
+
+        return redirect('/inventory')->with('success', 'El producto se registró correctamente en el inventario.');
     }
 
     /**

@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Inventory extends Model
 {
     protected $fillable= [
-      'id',
-      'stock',
-      'precio_costo',
-      'precio_publico',
+        'stock',
+        'precio_costo',
+        'precio_publico',
+        'medicament_id',
+        'pharmacy_id',
     ];
 
     public function medicament() {
-        return $this->hasOne(Medicament::class);
+        return $this->belongsTo(Medicament::class);
     }
 }
