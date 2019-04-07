@@ -52,3 +52,15 @@ $fa-font-path: "../webfonts";
     text-align: center;
     font-size: .9em;
 }
+
+.label-with-modal {
+    display: flex;
+}
+
+.label-with-modal > * {
+    display: block;
+}
+
+.ultramodal {
+    z-index: 99999999999;
+}

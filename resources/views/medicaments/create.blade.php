@@ -28,10 +28,28 @@
                         @csrf
                         <div class="card-body">
                             <div class="form-group col-12">
-                                <select name="medicamentDescription" class="medicamentDescription form-control"></select>
+                                <label for="producto_descripcion">Descripción</label>
+                                <input type="text" class="form-control" id="producto_descripcion" placeholder="Descripción">
                             </div>
-                            <!--<label for="producto_descripcion">Descripción</label>
-                            <input type="text" class="form-control" id="producto_descripcion" placeholder="Descripción">-->
+
+                            <div class="row col-12">
+                                <div class="form-group col-6">
+                                    <label for="producto_unidad" class="mt-1">Unidad</label>
+                                    <input type="text" class="form-control" id="producto_unidad" placeholder="Unidad">
+                                </div>
+                                <div class="form-group col-6">
+                                        <label for="producto_laboratorio" class="mt-1">Laboratorio</label>
+                                        <button type="button" class="btn btn-sm btn-success mb-2 ml-1" data-toggle="modal" data-target="#new_laboratory_modal">Nuevo</button>
+                                    <input type="text" class="form-control" id="producto_laboratorio" placeholder="Laboratorio">
+                                </div>
+                            </div>
+                            <div class="form-group col-12">
+                                <div class="label-with-modal">
+                                    <label for="producto_principio_activo" class="mt-1">Principio activo</label>
+                                    <button type="button" class="btn btn-sm btn-success mb-2 ml-1" data-toggle="modal" data-target="#new_active_modal">Nuevo</button>
+                                </div>
+                                <input type="text" class="form-control" id="producto_principio_activo" placeholder="Principio activo">
+                            </div>
                             <div class="row col-12">
                                 <div class="form-group col-4">
                                     <label for="producto_stock">Stock</label>
@@ -134,6 +152,7 @@
             datatype: 'json',
             delay: 250,
             data: function (term) {
+                console.log(term);
                 return {
                     q: term
                 };
