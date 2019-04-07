@@ -119,3 +119,9 @@
     </section>
     <!-- /.content -->
 @endsection
+
+@section('script')
+<script>
+    console.log('HOLA CARAJO');
+</script>
+@endsection

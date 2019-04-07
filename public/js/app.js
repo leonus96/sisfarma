@@ -54208,27 +54208,27 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(/*! admin-lte */ "./node_modules/admin-lte/dist/js/adminlte.min.js");
+__webpack_require__(/*! admin-lte */ "./node_modules/admin-lte/dist/js/adminlte.min.js"); // require('admin-lte/plugins/daterangepicker');
 
-__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module 'admin-lte/plugins/daterangepicker'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"); //Date range as a button
-
-
-$('#daterange-btn').daterangepicker({
-  ranges: {
-    'Today': [moment(), moment()],
-    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-    'This Month': [moment().startOf('month'), moment().endOf('month')],
-    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-  },
-  startDate: moment().subtract(29, 'days'),
-  endDate: moment()
-}, function (start, end) {
-  $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-});
+// $('#daterange-btn').daterangepicker(
+//     {
+//         ranges   : {
+//             'Today'       : [moment(), moment()],
+//             'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+//             'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+//             'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+//             'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+//             'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+//         },
+//         startDate: moment().subtract(29, 'days'),
+//         endDate  : moment()
+//     },
+//     function (start, end) {
+//         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+//     },
+// );
 
 /***/ }),
 

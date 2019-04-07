@@ -1,10 +1,11 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{ Auth::user()->pharmacy->name }} | SisFarma</title>
+    <!-- CSRF -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS -->
@@ -12,7 +13,6 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
         <!-- Left navbar links -->
@@ -158,7 +158,6 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
-<script src="/js/app.js"></script>
+@include('layouts.scripts');
 </body>
 </html>
