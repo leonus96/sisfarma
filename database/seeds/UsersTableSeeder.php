@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'nombre' => 'Joseph León',
-                'email' => 'leonues96@gmail.com',
+                'email' => 'leonus96@gmail.com',
                 'password' => bcrypt('88888888'),
                 'admin_tera' => true,
                 'pharmacy_id' => Pharmacy::ID,

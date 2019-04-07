@@ -31,23 +31,9 @@
                         @csrf
                         <div class="card-body">
                             <div class="form-group col-12">
-                                <label for="producto_descripcion">Descripción</label>
-                                <input type="text" class="form-control" id="producto_descripcion" placeholder="Descripción">
-                            </div>
-
-                            <div class="row col-12">
-                                <div class="form-group col-6">
-                                    <label for="producto_unidad">Unidad</label>
-                                    <input type="text" class="form-control" id="producto_unidad" placeholder="Unidad">
-                                </div>
-                                <div class="form-group col-6">
-                                    <label for="producto_laboratorio">Laboratorio</label>
-                                    <input type="text" class="form-control" id="producto_laboratorio" placeholder="Laboratorio">
-                                </div>
-                            </div>
-                            <div class="form-group col-12">
-                                <label for="producto_principio_activo">Principio activo</label>
-                                <input type="text" class="form-control" id="producto_principio_activo" placeholder="Principio activo">
+                                <select name="medicamentDescription" class="medicamentDescription form-control" multiple="multiple"></select>
+                                <!--<label for="producto_descripcion">Descripción</label>
+                                <input type="text" class="form-control" id="producto_descripcion" placeholder="Descripción">-->
                             </div>
                             <div class="row col-12">
                                 <div class="form-group col-4">
@@ -81,4 +67,36 @@
         </div>
     </section>
     <!-- /.content -->
+
+
+@endsection
+
+@section('script')
+    <script>
+        $('.medicamentDescription').select2({
+            placeholder: 'Selecciona un medicamento',
+            ajax: {
+                url: '/select-medicament',
+                datatype: 'json',
+                delay: 250,
+                data: function (term) {
+                    console.log(term);
+                    return {
+                        q: term
+                    };
+                },
+                processResults: function (data) {
+                    return{
+                        results: $.map(data, function (medicament) {
+                            return {
+                                text: medicament.descripcion + ' ' + medicament.unidad,
+                                id: medicament.id,
+                            }
+                        })
+                    };
+                },
+                cache: true,
+            },
+        });
+    </script>
 @endsection
