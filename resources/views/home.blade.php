@@ -28,12 +28,16 @@
                         <div class="card-body row">
                             <div class="form-group col-12">
                                 <label for="medicamento">Buscar medicamento</label>
-                                <select name="" id="selectInventoty" class="selectInventory form-control"></select>
+                                <select name="" id="selectInventory" class="selectInventory form-control"></select>
                                 <input type="text" id="medicamento" placeholder="Ingresa medicamento o principio activo a buscar" style="display:none;">
                             </div>
-                            <div class="form-group col-10">
-                                <label for="medicamento">Medicamento</label>
-                                <input type="text" disabled class="form-control" id="medicamento">
+                            <div class="form-group col-4">
+                                <label for="medicamento">Precio</label>
+                                <input id="medicamento_precio" type="text" disabled class="form-control" id="medicamento">
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="cantidad">Stock actual</label>
+                                <input type="number" disabled class="form-control" id="stock_actual">
                             </div>
                             <div class="form-group col-2">
                                 <label for="cantidad">Cantidad</label>
@@ -61,8 +65,6 @@
                             {{ csrf_field() }}
                             <div class="form-group col-12">
                                 <select name="" id="DNICustomer" class="DNICustomer form-control"></select>
-                                <!--<label for="cliente_search">Buscar cliente</label>
-                                <input type="text" class="form-control" id="cliente_search" placeholder="Ingrese DNI del cliente">-->
                             </div>
                         </form>
                     </div>
@@ -184,7 +186,6 @@
             datatype: 'json',
             delay: 250,
             data: function (term) {
-                console.log(term);
                 return {
                     q: term
                 };
@@ -193,14 +194,22 @@
                 return{
                     results: $.map(data, function (inventory) {
                         return {
-                            text: inventory.nombre,
+                            text: inventory.descripcion,
                             id: inventory.id,
+                            precio_publico: inventory.precio_publico,
+                            stock: inventory.stock,
                         }
                     })
                 };
             },
             cache: true,
         },
+    });
+
+    $('#selectInventory').change(function () {
+        console.log($('#selectInventory').select2('data'));
+        $('#medicamento_precio').val($('#selectInventory').select2('data')[0].precio_publico);
+        $('#stock_actual').val($('#selectInventory').select2('data')[0].stock);
     });
 
     $('.DNICustomer').select2({
@@ -228,7 +237,6 @@
             cache: true,
         },
     });
-
     /*$('#DNICustomer').change(function() {
         $('#nombreCustomer').val()
     });*/

@@ -124,7 +124,7 @@ class InventoryController extends Controller
             $search = $request->query('q')['term'];
             $data = DB::table('inventories')
                         ->join('medicaments', 'medicaments.id', '=', 'inventories.medicament_id')
-                        ->select('medicaments.descripcion', 'medicaments.unidad', 'inventories.stock', 'inventories.precio_publico')
+                        ->select('inventories.id', 'medicaments.descripcion', 'medicaments.unidad', 'inventories.stock', 'inventories.precio_publico')
                         ->where('medicaments.descripcion', 'LIKE', '%'.$search.'%')
                         ->get();
         }
