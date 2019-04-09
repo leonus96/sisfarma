@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Añadir</button>
+                            <button id="agregar-al-pedido" class="btn btn-primary">Añadir</button>
                         </div>
                     </form>
                 </div>
@@ -80,20 +80,13 @@
                             <thead>
                             <tr>
                                 <th>Medicamento</th>
-                                <th>Principio Activo</th>
                                 <th>Precio Unitario</th>
                                 <th>Cantidad</th>
                                 <th>Subtotal</th>
+                                <th>Acciones</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>Trident</td>
-                                <td>Blabla</td>
-                                <td>Win 95+</td>
-                                <td>4</td>
-                                <td>X</td>
-                            </tr>
+                            <tbody id="pedido-body">
                             </tbody>
                             <tfoot>
                         </table>
@@ -207,7 +200,6 @@
     });
 
     $('#selectInventory').change(function () {
-        console.log($('#selectInventory').select2('data'));
         $('#medicamento_precio').val($('#selectInventory').select2('data')[0].precio_publico);
         $('#stock_actual').val($('#selectInventory').select2('data')[0].stock);
     });
@@ -236,6 +228,33 @@
             },
             cache: true,
         },
+    });
+
+    function removeRow(element) {
+        $(element)[0].parentElement.remove();
+    }
+
+    $('#agregar-al-pedido').click(function(e) {
+        e.preventDefault();
+        if ($('#selectInventory').select2('data').length) {
+            if ($('#cantidad').val() > 0 && $('#cantidad').val() <= $('#stock_actual').val()) {
+                const rowElement = `
+                    <tr data-id="${$('#selectInventory').select2('data')[0].id}">
+                        <td>${$('#selectInventory').select2('data')[0].text}</td>
+                        <td>${$('#medicamento_precio').val()}</td>
+                        <td>${$('#cantidad').val()}</td>
+                        <td>${ (parseInt($('#cantidad').val()) * parseFloat($('#medicamento_precio').val())).toFixed(2) }</td>
+                        <td onclick="removeRow(this)" style="cursor: pointer;">❌</td>
+                    </tr>
+                `;
+                $('#pedido-body').append(rowElement);
+                $('#cantidad').val('');
+            } else {
+                alert('😥, la cantidad no puede ser mayor al stock actual y no puede ser 0');
+            }
+        } else {
+            alert('😥, debe seleccionar un producto!');
+        }
     });
     /*$('#DNICustomer').change(function() {
         $('#nombreCustomer').val()
