@@ -24,41 +24,27 @@ class MedicamentController extends Controller
 
     public function store(Request $request)
     {
+        //dd($request);
         $request->validate([
-            'producto_descripcion' => 'required|max:150',
-            'producto_unidad' => 'required',
-            'producto_laboratorio' => 'required',
-            'producto_principio_activo' => 'required',
-            'producto_stock' => 'required|integer',
-            'producto_precio_costo' => 'required|decimal',
-            'producto_precio_publico' => 'required|decimal',
+            'medicamento_nombre' => 'required|max:150',
+            'medicamento_concentracion' => 'required',
+            'medicamento_forma_farmaceutica' => 'required',
+            'medicamento_presentacion' => 'required',
+            'selectLaboratory' => 'sometimes',
+            'selectPrinciple' => 'sometimes',
         ]);
 
-        $laboratory = new Laboratory([
-            'nombre' => $request->get('producto_laboratorio'),
-            'pharmacy_id' => Pharmacy::ID,
-        ]);
-        $laboratory->save();
-
-        $active_principle = new ActivePrinciple([
-            'nombre' => $request->get('producto_principio_activo'),
-            'descripcion' => 'Descripción de prueba',
-            'pharmacy_id' => Pharmacy::ID,
-        ]);
-        $active_principle->save();
 
         $medicament = new Medicament([
-            'descripcion' => $request->get('producto_descripcion'),
-            'unidad' => $request->get('producto_unidad'),
-            'stock' => $request->get('producto_stock'),
-            'precio_costo' => $request->get('producto_precio_costo'),
-            'precio_publico' => $request->get('producto_precio_publico'),
-            'pharmacy_id' => Pharmacy::ID,
-            'laboratory_id' => $laboratory->id,
-            'active_principle_id' => $active_principle->id,
+            'nombre' => $request->get('medicamento_nombre'),
+            'concentracion' => $request->get('medicamento_concentracion'),
+            'forma_farmaceutica' => $request->get('medicamento_forma_farmaceutica'),
+            'presentacion' => $request->get('medicamento_presentacion'),
+            'laboratory_id' => $request->get('selectLaboratory'),
+            'active_principle_id' => $request->get('selectPrinciple'),
         ]);
         $medicament->save();
-        return redirect('/home')->with('success', 'Ha sido agregado el medicamento');
+        return redirect('/medicament')->with('success', 'Ha sido agregado el medicamento');
     }
 
     /**
@@ -94,8 +80,9 @@ class MedicamentController extends Controller
             //dd($request->query('q')['term']);
             $search = $request->query('q')['term'];
             $data = DB::table('medicaments')
-                        ->select('id', 'descripcion', 'unidad')
-                        ->where('descripcion', 'LIKE', '%'.$search.'%')
+                        ->select('medicaments.id', 'medicaments.nombre', 'medicaments.concentracion', 'medicaments.forma_farmaceutica_simp', 'laboratories.nombre as laboratory_name')
+                        ->join('laboratories', 'laboratories.id', '=', 'medicaments.laboratory_id')
+                        ->where('medicaments.nombre', 'LIKE', '%'.$search.'%')
                         ->get();
         }
         return response()->json($data);

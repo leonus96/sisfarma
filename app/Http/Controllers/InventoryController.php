@@ -45,20 +45,31 @@ class InventoryController extends Controller
             'stock' => 'required',
             'precio_costo' => 'required',
             'precio_publico' => 'required',
+            'fecha_vencimiento' => 'sometimes'
         ]);
 
-        $inventory = new Inventory([
-            'stock' => $request->get('stock'),
-            'precio_costo' => $request->get('precio_costo'),
-            'precio_publico' => $request->get('precio_publico'),
-            'medicament_id' => $request->get('medicament_id'),
-            'pharmacy_id' => Pharmacy::ID,
-        ]);
+        $inventory = Inventory::where('medicament_id', $request->get('medicament_id'))
+            ->get()
+            ->first();
+        if($inventory) {
+            $inventory->stock = $inventory->stock + $request->get('stock');
+            $inventory->precio_publico =  $request->get('precio_publico');
+        } else {
+            $inventory = new Inventory([
+                'stock' => $request->get('stock'),
+                'precio_costo' => $request->get('precio_costo'),
+                'precio_publico' => $request->get('precio_publico'),
+                'medicament_id' => $request->get('medicament_id'),
+                'fecha_vencimiento' => $request->get('fecha_vencimiento'),
+                'pharmacy_id' => Pharmacy::ID,
+            ]);
+        }
+
         $inventory->save();
 
         if ($request->get('gasto')) {
             $expense = new Expense([
-                'descripcion' => $inventory->medicament->descripcion,
+                'descripcion' => $inventory->medicament->nombre,
                 'monto_total' => $inventory->precio_costo * $inventory->stock,
                 'fecha' => Carbon::now(),
                 'pharmacy_id' => Pharmacy::ID,
@@ -124,8 +135,9 @@ class InventoryController extends Controller
             $search = $request->query('q')['term'];
             $data = DB::table('inventories')
                         ->join('medicaments', 'medicaments.id', '=', 'inventories.medicament_id')
-                        ->select('inventories.id', 'medicaments.descripcion', 'medicaments.unidad', 'inventories.stock', 'inventories.precio_publico')
-                        ->where('medicaments.descripcion', 'LIKE', '%'.$search.'%')
+                        ->join('laboratories', 'laboratories.id', '=', 'medicaments.laboratory_id')
+                        ->select('inventories.id', 'medicaments.nombre', 'medicaments.concentracion', 'medicaments.forma_farmaceutica_simp', 'medicaments.presentacion', 'laboratories.nombre as laboratoryName', 'inventories.stock', 'inventories.precio_publico')
+                        ->where('medicaments.nombre', 'LIKE', '%'.$search.'%')
                         ->get();
         }
         return response()->json($data);

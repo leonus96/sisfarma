@@ -12,7 +12,11 @@ class Sale extends Model
         'customer_id',
     ];
 
-    /*public function saleDetails() {
+    public function saleDetails() {
         return $this->hasMany(SaleDatail::class);
-    }*/
+    }
+
+    public function customer() {
+        return $this->belongsTo(Customer::class);
+    }
 }

@@ -19,15 +19,14 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('rol');
             $table->unsignedBigInteger('pharmacy_id')->nullable();
-            $table->boolean('admin_tera')->default(false);
 
             $table->foreign('pharmacy_id')->references('id')->on('pharmacies');
             $table->rememberToken();
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

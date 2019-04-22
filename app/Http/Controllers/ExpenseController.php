@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
+use App\Expense;
+use App\Pharmacy;
 use Illuminate\Http\Request;
-use App\Sale;
-use App\SaleDetail;
-use App\Inventory;
 
-class SaleController extends Controller
+class ExpenseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +15,8 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $sales = Sale::with('customer')->get();
-        return view('sales.index', compact('sales'));
+        $expenses = Expense::all();
+        return view('expenses.index', compact('expenses'));
     }
 
     /**
@@ -28,7 +26,7 @@ class SaleController extends Controller
      */
     public function create()
     {
-        //
+        return view('expenses.create');
     }
 
     /**
@@ -41,33 +39,19 @@ class SaleController extends Controller
     {
         //dd($request);
         $request->validate([
-            "details" => "required",
-            "total" => "required",
+            'gasto_descripcion' => 'required',
+            'gasto_monto' => 'required|numeric|min:1',
+            'gasto_fecha' => 'required',
         ]);
-
-        $details = $request->details;
-        $sale = new Sale([
-            'fecha'         => Carbon::now()->format('Y/m/d'),
-            'customer_id'   => $request->customer_id,
-            'cantidad'      => $request->total,
+        $expense  = new Expense([
+            'descripcion' => $request->get('gasto_descripcion'),
+            'monto_total' => $request->get('gasto_monto'),
+            'fecha' => $request->get('gasto_fecha'),
+            'pharmacy_id' => Pharmacy::ID,
         ]);
-
-        $sale->save();
-        foreach(json_decode($details[0]) as $detail) {
-            $det = new SaleDetail([
-                'cantidad'      => $detail->cantidad,
-                'inventory_id'  => $detail->id_inventory,
-                'sale_id'       => $sale->id,
-            ]);
-            $inventory = Inventory::find($detail->id_inventory);
-            $inventory->stock = $inventory->stock - $detail->cantidad;
-            $inventory->save();
-            $det->save();
-        }
-        return redirect('/home')->with('success', 'Venta registrada!');
-
+        $expense->save();
+        return redirect('/expense')->with('success', 'Gasto registrado!');
     }
-
 
     /**
      * Display the specified resource.
@@ -111,16 +95,8 @@ class SaleController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
-
-    public function indexByDate($date) {
-        if($date != 'now') {
-            $sales = Sale::whereDate('register_at', $date)->get();
-            return view('sales.index', compact('sales'));
-        }
-        $date = Carbon::now()->toDateString();
-        $sales = Sale::whereDate('register_at', $date);
-        return view('sales.index', compact('sales', 'date'));
+        $expense = Expense::find($id);
+        $expense->delete();
+        return redirect('/expense')->with('success', 'El gasto se eliminó.');
     }
 }

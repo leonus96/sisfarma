@@ -26,12 +26,10 @@
                 <div class="card">
                     <form role="form">
                         <div class="card-body">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <button type="button" class="btn btn-primary float-right" id="daterange-btn">
-                                        <i class="fa fa-calendar"></i> Selecciona fecha
-                                        <i class="fa fa-caret-down"></i>
-                                    </button>
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="selectDate">Selecciona fecha</label>
+                                    <input class="form-control" type="date" id="selectDate" name="selectDate" min="2019-01-01" value="{{$date}}">
                                 </div>
                             </div>
                         </div>
@@ -40,29 +38,29 @@
                                 <thead>
                                 <tr>
                                     <th>Código</th>
-                                    <th>Descripción</th>
-                                    <th>Unidad</th>
-                                    <th>Precio</th>
-                                    <th>Cantidad</th>
+                                    <th>Fecha</th>
+                                    <th>Cliente</th>
+                                    <th>Monto</th>
+                                    <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Trident</td>
-                                    <td>Internet
-                                        Explorer 4.0
-                                    </td>
-                                    <td>Win 95+</td>
-                                    <td> 4</td>
-                                    <td>X</td>
-                                </tr>
+                                @foreach($sales as $sale)
+                                    <tr>
+                                        <td>{{ $sale->id }}</td>
+                                        <td>{{ $sale->fecha }}</td>
+                                        @if($sale->customer)
+                                            <td>{{ $sale->customer->nombre }}</td>
+                                        @else
+                                            <td> - </td>
+                                        @endif
+                                        <td>{{$sale->cantidad}}</td>
+                                        <td>X</td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                                 <tfoot>
                             </table>
-                        </div>
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Añadir</button>
                         </div>
                     </form>
                 </div>

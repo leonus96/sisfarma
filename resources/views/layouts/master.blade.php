@@ -61,6 +61,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
+                    <li class="nav-header">NEGOCIO</li>
                     <li class="nav-item has-treeview menu-open">
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fa fa-shopping-cart"></i>
@@ -77,64 +78,73 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="/sale/search/now" class="nav-link">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>Reporte diario</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{route('sale.index')}}" class="nav-link">
                                     <i class="fa fa-circle-o nav-icon"></i>
-                                    <p>Reporte</p>
+                                    <p>Resumen mensual</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview menu-open">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa fa-list"></i>
-                            <p>
-                                Inventario
-                                <i class="fa fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{route('inventory.create')}}" class="nav-link">
-                                    <i class="fa fa-circle-o nav-icon"></i>
-                                    <p>Registrar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('inventory.index')}}" class="nav-link">
-                                    <i class="fa fa-circle-o nav-icon"></i>
-                                    <p>Modificar</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <!--- ADMIN-->
+                    @if (Auth::user()->rol === 'admin' || Auth::user()->rol === 'tera')
+                        <li class="nav-item">
+                            <a href="{{ route('inventory.index') }}" class="nav-link">
+                                <i class="nav-icon fa fa-list"></i>
+                                <p>Inventario</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('expense.index') }}" class="nav-link">
+                                <i class="nav-icon fa fa-money-bill-alt"></i>
+                                <p>Gastos</p>
+                            </a>
+                        </li>
+                        <li class="nav-header">ADMINISTRACIÓN</li>
+                        <li class="nav-item">
+                            <a href="{{route('medicament.index')}}" class="nav-link">
+                                <i class="nav-icon fa fa-pills"></i>
+                                <p>Medicamentos</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('principle.index') }}" class="nav-link">
+                                <i class="nav-icon fa fa-vials"></i>
+                                <p>Principios activos</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('laboratory.index') }}" class="nav-link">
+                                <i class="nav-icon fa fa-flask"></i>
+                                <p>Laboratorios</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('customer.index')}}" class="nav-link">
+                                <i class="nav-icon fa fa-users"></i>
+                                <p>Clientes</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('user.index')}}" class="nav-link">
+                                <i class="nav-icon fa fa-user"></i>
+                                <p>Usuarios</p>
+                            </a>
+                        </li>
+                    @endif
+                    <li class="nav-header">SISTEMA</li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa fa-money-bill-alt"></i>
-                            <p>Gastos</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('principle.index') }}" class="nav-link">
-                            <i class="nav-icon fa fa-vials"></i>
-                            <p>Principios activos</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('laboratory.index') }}" class="nav-link">
-                            <i class="nav-icon fa fa-flask"></i>
-                            <p>Laboratorios</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('customer.index')}}" class="nav-link">
-                            <i class="nav-icon fa fa-users"></i>
-                            <p>Clientes</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('medicament.index')}}" class="nav-link">
-                            <i class="nav-icon fa fa-pills"></i>
-                            <p>Medicamentos</p>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="nav-icon fa fa-sign-out-alt"></i>
+                            <p>Salir</p>
                         </a>
                     </li>
                 </ul>

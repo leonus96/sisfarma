@@ -17,6 +17,12 @@
         </div>
     </div>
 
+    @if(session()->get('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+    @endif
+
     <section class="content">
         <div class="row">
             <div class="col-12">
@@ -24,30 +30,28 @@
                     <div class="card-header">
                         <h3 class="card-title">Productos</h3>
                     </div>
-                    <form role="form">
-                        <div class="card-body row">
-                            <div class="form-group col-12">
-                                <label for="medicamento">Buscar medicamento</label>
-                                <select name="" id="selectInventory" class="selectInventory form-control"></select>
-                                <input type="text" id="medicamento" placeholder="Ingresa medicamento o principio activo a buscar" style="display:none;">
-                            </div>
-                            <div class="form-group col-4">
-                                <label for="medicamento">Precio</label>
-                                <input id="medicamento_precio" type="text" disabled class="form-control" id="medicamento">
-                            </div>
-                            <div class="form-group col-3">
-                                <label for="cantidad">Stock actual</label>
-                                <input type="number" disabled class="form-control" id="stock_actual">
-                            </div>
-                            <div class="form-group col-2">
-                                <label for="cantidad">Cantidad</label>
-                                <input type="number" class="form-control" id="cantidad" placeholder="# Unidades">
-                            </div>
+                    <div class="card-body row">
+                        <div class="form-group col-12">
+                            <label for="medicamento">Buscar medicamento</label>
+                            <select name="" id="selectInventory" class="selectInventory form-control"></select>
+                            <input type="text" id="medicamento" placeholder="Ingresa medicamento o principio activo a buscar" style="display:none;">
                         </div>
-                        <div class="card-footer">
-                            <button id="agregar-al-pedido" class="btn btn-primary">Añadir</button>
+                        <div class="form-group col-4">
+                            <label for="medicamento">Precio</label>
+                            <input id="medicamento_precio" type="text" disabled class="form-control" id="medicamento">
                         </div>
-                    </form>
+                        <div class="form-group col-3">
+                            <label for="cantidad">Stock actual</label>
+                            <input type="number" disabled class="form-control" id="stock_actual">
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="cantidad">Cantidad</label>
+                            <input type="number" class="form-control" id="cantidad" placeholder="# Unidades">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button id="agregar-al-pedido" class="btn btn-primary">Añadir</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,8 +95,16 @@
                             <tfoot>
                         </table>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-success">Vender</button>
+                    <div class="card-footer row">
+                        <form action="/sale" method="POST" id="form-sale">
+                            {{ csrf_field() }}
+                            <input type="text" style="display:none;" id="details_form" name="details[]">
+                            <input type="text"  style="display:none;" name="total" id="total_form">
+                        </form>
+                        <div class="col-8">
+                            <button id="vender-pedido" class="btn btn-success" >Vender</button>
+                        </div>
+                        <h5 class="col-4">Precio total: <span id="total_field"></span></h5>
                     </div>
                 </div>
             </div>
@@ -132,7 +144,10 @@
 
 @section('script')
 <script>
+    var details = [];
+    var total = 0;
     $(document).ready(function() {
+
         $('.error_name').hide();
         $('.error_dni').hide();
         $('#new_client_form').on('submit', function(e){
@@ -171,7 +186,6 @@
             });
         });
     });
-
     $('.selectInventory').select2({
         placeholder: 'Busca medicamento',
         ajax: {
@@ -187,7 +201,7 @@
                 return{
                     results: $.map(data, function (inventory) {
                         return {
-                            text: inventory.descripcion,
+                            text: inventory.nombre + ' ' + inventory.concentracion + ' ' + inventory.forma_farmaceutica_simp + ' '+ inventory.presentacion + ' ' + inventory.laboratoryName,
                             id: inventory.id,
                             precio_publico: inventory.precio_publico,
                             stock: inventory.stock,
@@ -237,7 +251,7 @@
     $('#agregar-al-pedido').click(function(e) {
         e.preventDefault();
         if ($('#selectInventory').select2('data').length) {
-            if ($('#cantidad').val() > 0 && $('#cantidad').val() <= $('#stock_actual').val()) {
+            if ($('#cantidad').val() > 0 && $('#cantidad').val() <= parseInt($('#stock_actual').val())) {
                 const rowElement = `
                     <tr data-id="${$('#selectInventory').select2('data')[0].id}">
                         <td>${$('#selectInventory').select2('data')[0].text}</td>
@@ -248,6 +262,16 @@
                     </tr>
                 `;
                 $('#pedido-body').append(rowElement);
+
+                // preparamos los datos
+                details.push({
+                    'id_inventory': $('#selectInventory').select2('data')[0].id,
+                    'cantidad': $('#cantidad').val(),
+                });
+                console.log((parseInt($('#cantidad').val()) * parseFloat($('#medicamento_precio').val())));
+                total += (parseInt($('#cantidad').val()) * parseFloat($('#medicamento_precio').val()));
+                $('#total_field').text(total.toFixed(2));
+
                 $('#cantidad').val('');
             } else {
                 alert('😥, la cantidad no puede ser mayor al stock actual y no puede ser 0');
@@ -256,8 +280,15 @@
             alert('😥, debe seleccionar un producto!');
         }
     });
-    /*$('#DNICustomer').change(function() {
-        $('#nombreCustomer').val()
-    });*/
+
+    $('#vender-pedido').click(function(e){
+        if(details.length == 0) {
+            alert('😥, agrega producto al pedido!')
+        }
+        $('#details_form').val(JSON.stringify(details));
+        $('#total_form').val(total);
+        $('#form-sale').submit();
+    });
+
 </script>
 @endsection

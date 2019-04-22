@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Inventario de medicamentos</h1>
+                    <h1 class="m-0 text-dark">Gastos</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Inventario</a></li>
-                        <li class="breadcrumb-item active">Modificar</li>
+                        <li class="breadcrumb-item"><a href="#">Gastos</a></li>
+                        <li class="breadcrumb-item active">Crear</li>
                     </ol>
                 </div>
             </div>
@@ -22,59 +22,39 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Ingresar medicamento</h3>
+                        <h3 class="card-title">Ingresar Gasto</h3>
                     </div>
-                    <form role="form" method="POST" action="{{ route('inventory.store') }}">
+                    <form role="form" method="POST" action="{{ route('expense.store') }}">
                         @csrf
                         <div class="card-body">
                             <div class="form-group col-12">
-                                <select id="medicamentDescription" class="medicamentDescription form-control"></select>
+                                <label for="gasto_descripcion">Descripcion</label>
+                                <input type="text" class="form-control" id="gasto_descripcion" placeholder="Descripcion del gasto" name="gasto_descripcion">
+                                @if ($errors->has('gasto_descripcion'))
+                                    <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('gasto_descripcion') }}</strong>
+                                        </span>
+                                @endif
                             </div>
-                            <input type="number" style="display:none;" name="medicament_id" id="medicament_id">
+
                             <div class="row col-12">
                                 <div class="form-group col-6">
-                                    <label for="producto_stock">Stock</label>
-                                    <input type="number" class="form-control" id="producto_stock" placeholder="Stock" name="stock">
-                                    @if ($errors->has('stock'))
+                                    <label for="gasto_monto">Monto</label>
+                                    <input type="number" step="0.1" class="form-control" id="gasto_monto" placeholder="Monto" name="gasto_monto">
+                                    @if ($errors->has('gasto_monto'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('stock') }}</strong>
+                                            <strong>{{ $errors->first('gasto_monto') }}</strong>
                                         </span>
                                     @endif
                                 </div>
                                 <div class="form-group col-6">
-                                    <label for="producto_precio_costo">Precio de costo</label>
-                                    <input type="text" class="form-control" id="producto_precio_costo" placeholder="Laboratorio" name="precio_costo">
-                                    @if ($errors->has('precio_costo'))
+                                    <label for="gasto_fecha">Fecha</label>
+                                    <input type="date" class="form-control" id="gasto_fecha" placeholder="Laboratorio" name="gasto_fecha">
+                                    @if ($errors->has('gasto_fecha'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('precio_costo') }}</strong>
+                                            <strong>{{ $errors->first('gasto_fecha') }}</strong>
                                         </span>
                                     @endif
-                                </div>
-                            </div>
-                            <div class="row col-12">
-                                <div class="form-group col-6">
-                                    <label for="producto_precio_publico">Precio público</label>
-                                    <input type="text" class="form-control" id="producto_precio_publico" placeholder="Laboratorio" name="precio_publico">
-                                    @if ($errors->has('precio_publico'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('precio_publico') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                                <div class="form-group col-6">
-                                    <label for="producto_precio_publico">Fecha de vencimiento</label>
-                                    <input type="date" class="form-control" id="producto_precio_publico" placeholder="Laboratorio" name="fecha_vencimiento">
-                                    @if ($errors->has('precio_publico'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('precio_publico') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group col-12">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="gasto">
-                                    <label class="form-check-label">Ingresar como gasto</label>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +118,7 @@
                 return{
                     results: $.map(data, function (medicament) {
                         return {
-                            text: medicament.nombre + ' ' + medicament.concentracion + ' ' + medicament.forma_farmaceutica_simp + ' ' + medicament.laboratory_name,
+                            text: medicament.descripcion + ' ' + medicament.unidad,
                             id: medicament.id,
                         }
                     })

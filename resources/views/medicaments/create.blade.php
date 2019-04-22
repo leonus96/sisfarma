@@ -28,29 +28,36 @@
                         @csrf
                         <div class="card-body">
                             <div class="form-group col-12">
-                                <label for="producto_descripcion">Descripción</label>
-                                <input type="text" class="form-control" id="producto_descripcion" placeholder="Descripción">
+                                <label for="medicamento_nombre">Nombre</label>
+                                <input type="text" class="form-control" id="medicamento_nombre" placeholder="Nombre" name="medicamento_nombre">
                             </div>
-
+                            <div class="form-group col-12">
+                                <label for="medicamento_concentracion" class="mt-1">Concentración</label>
+                                <input type="text" class="form-control" id="medicamento_concentracion" placeholder="Concentración Ej: 0.5 mg" name="medicamento_concentracion">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="medicamento_forma_farmaceutica" class="mt-1">Forma famaceútica</label>
+                                <input type="text" class="form-control" id="medicamento_forma_farmaceutica" placeholder="Forma farmaceútica Ej: SUSPENSIÓN" name="medicamento_forma_farmaceutica">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="medicamento_presentacion" class="mt-1">Presentación</label>
+                                <input type="text" class="form-control" id="medicamento_presentacion" placeholder="Presentación Ej: Frasco X 60 mL" name="medicamento_presentacion">
+                            </div>
                             <div class="row col-12">
-                                <div class="form-group col-6">
-                                    <label for="producto_unidad" class="mt-1">Unidad</label>
-                                    <input type="text" class="form-control" id="producto_unidad" placeholder="Unidad">
-                                </div>
                                 <div class="form-group col-6">
                                         <label for="producto_laboratorio" class="mt-1">Laboratorio</label>
                                         <button type="button" class="btn btn-sm btn-success mb-2 ml-1" data-toggle="modal" data-target="#new_laboratory_modal">Nuevo</button>
                                         <select name="selectLaboratory" id="selectLaboratory" class="selectLaboratory form-control"></select>
                                     <input type="text" class="form-control" style="display:none;" id="producto_laboratorio" placeholder="Laboratorio">
                                 </div>
-                            </div>
-                            <div class="form-group col-12">
-                                <div class="label-with-modal">
-                                    <label for="producto_principio_activo" class="mt-1">Principio activo</label>
-                                    <button type="button" class="btn btn-sm btn-success mb-2 ml-1" data-toggle="modal" data-target="#new_active_modal">Nuevo</button>
+                                <div class="form-group col-6">
+                                    <div class="label-with-modal">
+                                        <label for="producto_principio_activo" class="mt-1">Principio activo</label>
+                                        <button type="button" class="btn btn-sm btn-success mb-2 ml-1" data-toggle="modal" data-target="#new_active_modal">Nuevo</button>
+                                    </div>
+                                    <select name="selectPrinciple" id="selectPrinciple" class="selectPrinciple form-control"></select>
+                                    <input type="text" class="form-control" style="display:none;" id="producto_principio_activo" placeholder="Principio activo">
                                 </div>
-                                <select name="selectPrinciple" id="selectPrinciple" class="selectPrinciple form-control"></select>
-                                <input type="text" class="form-control" style="display:none;" id="producto_principio_activo" placeholder="Principio activo">
                             </div>
                         </div>
                         <div class="card-footer">
