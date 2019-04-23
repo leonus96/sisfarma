@@ -111,16 +111,22 @@ class SaleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sale = Sale::find($id);
+        $sale->delete();
+        return redirect('/sales/search/now')->with('success', 'La venta se anuló.');
     }
 
     public function indexByDate($date) {
+        $monto_total = 0;
         if($date != 'now') {
-            $sales = Sale::whereDate('register_at', $date)->get();
-            return view('sales.index', compact('sales'));
+            $sales = Sale::whereDate('created_at', $date)->get();
+        } else {
+            $date = Carbon::now()->toDateString();
+            $sales = Sale::whereDate('created_at', $date)->get();
         }
-        $date = Carbon::now()->toDateString();
-        $sales = Sale::whereDate('register_at', $date);
-        return view('sales.index', compact('sales', 'date'));
+        foreach ($sales as $sale) {
+            $monto_total = $monto_total + $sale->cantidad;
+        }
+        return view('sales.index', compact('sales', 'date', 'monto_total'));
     }
 }

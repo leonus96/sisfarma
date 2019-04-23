@@ -83,12 +83,12 @@
                                     <p>Reporte diario</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!--<li class="nav-item">
                                 <a href="{{route('sale.index')}}" class="nav-link">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>Resumen mensual</p>
                                 </a>
-                            </li>
+                            </li>-->
                         </ul>
                     </li>
                     <!--- ADMIN-->

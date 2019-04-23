@@ -27,6 +27,8 @@ Route::resource('sale', 'SaleController');
 Route::get('sale/search/{date?}', 'SaleController@indexByDate');
 Route::resource('inventory', 'InventoryController');
 Route::get('select-inventory', 'InventoryController@autocomplete');
+Route::get('select-inventory/{id_medicament}', 'InventoryController@getInventoryByIdMedicament');
+Route::get('options-inventory/{id_active}', 'InventoryController@getInventoriesByPrincipleActive');
 Route::resource('medicament', 'MedicamentController');
 Route::get('select-medicament', 'MedicamentController@autocomplete');
 Route::resource('laboratory', 'LaboratoryController');
@@ -36,6 +38,7 @@ Route::post('save_customer', 'CustomerController@ajaxStore');
 Route::post('/save_laboratory', 'LaboratoryController@ajaxStore');
 Route::post('/save_active', 'ActivePrinciplesController@ajaxStore');
 Route::resource('expense', 'ExpenseController');
+Route::get('expense/search/{date?}', 'ExpenseController@indexByDate');
 
 // Users:
 Route::get('/users', 'OtherUserController@index')->name('user.index');

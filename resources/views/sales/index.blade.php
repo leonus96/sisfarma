@@ -41,7 +41,6 @@
                                     <th>Fecha</th>
                                     <th>Cliente</th>
                                     <th>Monto</th>
-                                    <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -55,12 +54,14 @@
                                             <td> - </td>
                                         @endif
                                         <td>{{$sale->cantidad}}</td>
-                                        <td>X</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                                 <tfoot>
                             </table>
+                        </div>
+                        <div class="card-footer">
+                            <h3>Ventas totales: {{$monto_total}}</h3>
                         </div>
                     </form>
                 </div>
@@ -68,4 +69,13 @@
         </div>
     </section>
     <!-- /.content -->
+@endsection
+
+@section('script')
+<script>
+    $('#selectDate').change(function () {
+       var date = $('#selectDate').val();
+       window.location.href = '/sale/search/' + date;
+    });
+</script>
 @endsection

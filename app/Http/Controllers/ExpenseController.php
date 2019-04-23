@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Expense;
 use App\Pharmacy;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -15,8 +16,12 @@ class ExpenseController extends Controller
      */
     public function index()
     {
+        $monto_total = 0;
         $expenses = Expense::all();
-        return view('expenses.index', compact('expenses'));
+        foreach ($expenses as $expense) {
+            $monto_total = $monto_total + $expense->monto_total;
+        }
+        return view('expenses.index', compact('expenses', 'monto_total'));
     }
 
     /**
@@ -98,5 +103,23 @@ class ExpenseController extends Controller
         $expense = Expense::find($id);
         $expense->delete();
         return redirect('/expense')->with('success', 'El gasto se eliminó.');
+    }
+
+    public function indexByDate($date) {
+        $monto_total = 0;
+        if($date != 'now') {
+            $date = Carbon::parse($date);
+            //dd($date);
+            $expenses = Expense::whereMonth('created_at', $date->month)
+                ->whereYear('created_at', $date->year)->get();
+        } else {
+            $date = Carbon::now();
+            $expenses = Expense::whereMonth('created_at', $date->month)
+                ->whereYear('created_at', $date->year)->get();
+        }
+        foreach ($expenses as $expense) {
+            $monto_total = $monto_total + $expense->monto_total;
+        }
+        return view('expenses.index', compact('expenses', 'date', 'monto_total'));
     }
 }

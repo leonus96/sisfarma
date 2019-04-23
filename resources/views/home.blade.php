@@ -36,6 +36,8 @@
                             <select name="" id="selectInventory" class="selectInventory form-control"></select>
                             <input type="text" id="medicamento" placeholder="Ingresa medicamento o principio activo a buscar" style="display:none;">
                         </div>
+                        <div class="options col-12">
+                        </div>
                         <div class="form-group col-4">
                             <label for="medicamento">Precio</label>
                             <input id="medicamento_precio" type="text" disabled class="form-control" id="medicamento">
@@ -146,6 +148,7 @@
 <script>
     var details = [];
     var total = 0;
+    var inventory_id;
     $(document).ready(function() {
 
         $('.error_name').hide();
@@ -189,7 +192,7 @@
     $('.selectInventory').select2({
         placeholder: 'Busca medicamento',
         ajax: {
-            url: '/select-inventory',
+            url: '/select-medicament/',
             datatype: 'json',
             delay: 250,
             data: function (term) {
@@ -199,12 +202,11 @@
             },
             processResults: function (data) {
                 return{
-                    results: $.map(data, function (inventory) {
+                    results: $.map(data, function (medicament) {
                         return {
-                            text: inventory.nombre + ' ' + inventory.concentracion + ' ' + inventory.forma_farmaceutica_simp + ' '+ inventory.presentacion + ' ' + inventory.laboratoryName,
-                            id: inventory.id,
-                            precio_publico: inventory.precio_publico,
-                            stock: inventory.stock,
+                            text: medicament.nombre + ' ' + medicament.concentracion + ' ' + medicament.forma_farmaceutica_simp + ' '+ medicament.presentacion + ' ' + medicament.laboratory_name,
+                            id: medicament.id,
+                            active: medicament.active_principle_id,
                         }
                     })
                 };
@@ -214,8 +216,46 @@
     });
 
     $('#selectInventory').change(function () {
-        $('#medicamento_precio').val($('#selectInventory').select2('data')[0].precio_publico);
-        $('#stock_actual').val($('#selectInventory').select2('data')[0].stock);
+        $.ajax({
+            type: 'GET',
+            url: 'select-inventory/' + $('#selectInventory').select2('data')[0].id,
+            success: function (data) {
+                if(data.length == 0){
+                    $.ajax({
+                        type: 'GET',
+                        url: 'options-inventory/' + $('#selectInventory').select2('data')[0].active,
+                        success: function (medicament) {
+                            if(medicament.length != 0) {
+                                $('.options').empty();
+                                console.log(medicament[0]);
+                                for(var i = 0; i < medicament.length; i++) {
+                                    $('.options').append(
+                                        '<p>No hay stock</p>' +
+                                        '<table class="table table-bordered table-hover"><tr><td>Opciones: </td></tr>' + '<tr>' +
+                                        '<td>' + medicament[i].nombre +
+                                        ' ' + medicament[i].concentracion +
+                                        ' ' + medicament[i].forma_farmaceutica_simp +
+                                        ' ' + medicament[i].presentacion +
+                                        ' ' + medicament[i].laboratory_name +
+                                        '</td>' +
+                                        '</tr></table>');
+                                }
+                            } else {
+                                $('.options').empty();
+                                $('.options').append("<p id='option_message'>No existen recomendaciones</p>");
+                            }
+                        }
+                    });
+                } else {
+                    inventory_id = data[0].id;
+                    $('#medicamento_precio').val(data[0].precio_publico);
+                    $('#stock_actual').val(data[0].stock);
+                }
+
+            }
+        })
+        /*$('#medicamento_precio').val($('#selectInventory').select2('data')[0].precio_publico);
+        $('#stock_actual').val($('#selectInventory').select2('data')[0].stock);*/
     });
 
     $('.DNICustomer').select2({
@@ -265,7 +305,7 @@
 
                 // preparamos los datos
                 details.push({
-                    'id_inventory': $('#selectInventory').select2('data')[0].id,
+                    'id_inventory': inventory_id,
                     'cantidad': $('#cantidad').val(),
                 });
                 console.log((parseInt($('#cantidad').val()) * parseFloat($('#medicamento_precio').val())));

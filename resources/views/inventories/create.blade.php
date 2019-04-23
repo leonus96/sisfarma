@@ -32,6 +32,17 @@
                             </div>
                             <input type="number" style="display:none;" name="medicament_id" id="medicament_id">
                             <div class="row col-12">
+                                <div class="form-group col-12">
+                                <label for="active_principle">Principio Activo</label>
+                                <input type="text" class="form-control" id="active_principle" placeholder="Principio activo" name="active_principle" disabled>
+                                @if ($errors->has('stock'))
+                                    <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('principio_activo') }}</strong>
+                                        </span>
+                                @endif
+                            </div>
+                            </div>
+                            <div class="row col-12">
                                 <div class="form-group col-6">
                                     <label for="producto_stock">Stock</label>
                                     <input type="number" class="form-control" id="producto_stock" placeholder="Stock" name="stock">
@@ -43,7 +54,7 @@
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="producto_precio_costo">Precio de costo</label>
-                                    <input type="text" class="form-control" id="producto_precio_costo" placeholder="Laboratorio" name="precio_costo">
+                                    <input type="number" step="0.1" class="form-control" id="producto_precio_costo" placeholder="Laboratorio" name="precio_costo">
                                     @if ($errors->has('precio_costo'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('precio_costo') }}</strong>
@@ -137,9 +148,11 @@
             processResults: function (data) {
                 return{
                     results: $.map(data, function (medicament) {
+                        //console.log(medicament);
                         return {
                             text: medicament.nombre + ' ' + medicament.concentracion + ' ' + medicament.forma_farmaceutica_simp + ' ' + medicament.laboratory_name,
                             id: medicament.id,
+                            active: medicament.active_principle_id,
                         }
                     })
                 };
@@ -150,6 +163,11 @@
 
     $('#medicamentDescription').change(function () {
         $('#medicament_id').val($('#medicamentDescription').select2('data')[0].id);
+        //console.log($('#medicamentDescription').select2('data')[0].active_principle_id );
+        if($('#medicamentDescription').select2('data')[0].active_principle_id == undefined
+        || $('#medicamentDescription').select2('data')[0].active_principle_id == null ) {
+            $('#active_principle').prop('disabled', false);
+        }
     });
 </script>
 @endsection

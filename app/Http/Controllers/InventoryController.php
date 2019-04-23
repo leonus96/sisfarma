@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\ActivePrinciple;
 use App\Inventory;
+use App\Medicament;
 use Illuminate\Http\Request;
 use App\Pharmacy;
 use Illuminate\Support\Facades\DB;
@@ -45,8 +47,20 @@ class InventoryController extends Controller
             'stock' => 'required',
             'precio_costo' => 'required',
             'precio_publico' => 'required',
-            'fecha_vencimiento' => 'sometimes'
+            'fecha_vencimiento' => 'sometimes',
+            'active_principle' => 'sometimes',
         ]);
+
+        if($request->get('active_principle')) {
+            $medicament = Medicament::find($request->get('medicament_id'));
+            $principle = new ActivePrinciple([
+                'nombre' => $request->get('active_principle'),
+                'descripcion' => $request->get('active_principle'),
+            ]);
+            $principle->save();
+            $medicament->active_principle_id = $principle->id;
+            $medicament->save();
+        }
 
         $inventory = Inventory::where('medicament_id', $request->get('medicament_id'))
             ->get()
@@ -126,6 +140,34 @@ class InventoryController extends Controller
         $inventory = Inventory::find($id);
         $inventory->delete();
         return redirect('/inventory')->with('success', 'El producto se eliminó del inventario.');
+    }
+
+    public function getInventoryByIdMedicament($idProduct) {
+        $inventories = Inventory::where('medicament_id', $idProduct)->get();
+        return response()->json($inventories);
+    }
+
+    public function getInventoriesByPrincipleActive($idActive) {
+        //dd($idActive);
+        if($idActive == 'null') {
+            return response()->json([]);
+        }
+        $inventories = DB::table('inventories')
+            ->join('medicaments', 'medicaments.id', '=', 'inventories.medicament_id')
+            ->join('active_principles', 'active_principles.id', '=', 'medicaments.active_principle_id')
+            ->join('laboratories', 'laboratories.id', '=', 'medicaments.laboratory_id')
+            ->select('inventories.id',
+                'medicaments.nombre',
+                'medicaments.concentracion',
+                'medicaments.forma_farmaceutica_simp',
+                'medicaments.presentacion',
+                'laboratories.nombre as laboratory_name',
+                'inventories.stock',
+                'inventories.precio_publico',
+                'active_principles.nombre as active_nombre')
+            ->where('active_principles.id', $idActive)
+            ->get();
+        return response()->json($inventories);
     }
 
     public function autocomplete(Request $request) {

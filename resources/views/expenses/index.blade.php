@@ -33,6 +33,17 @@
                         </a>
                     </div>
                     <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label for="selectDate">Selecciona fecha</label>
+                                @if($date->month<10)
+                                    <input class="form-control" type="month" id="selectDate" name="selectDate" min="2019-01" value="{{$date->year.'-0'.$date->month}}">
+                                @else
+                                    <input class="form-control" type="month" id="selectDate" name="selectDate" min="2019-01" value="{{$date->year.'-'.$date->month}}">
+                                @endif
+
+                            </div>
+                        </div>
                         <table id="pedido" class="table table-bordered table-hover">
                             <thead>
                             <tr>
@@ -64,8 +75,21 @@
                             <tfoot>
                         </table>
                     </div>
+                    <div class="card-footer">
+                        <h3>Gastos totales: {{$monto_total}}</h3>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+@endsection
+
+@section('script')
+    <script>
+        $('#selectDate').change(function () {
+            var date = $('#selectDate').val();
+            //console.log(date);
+            window.location.href = '/expense/search/' + date;
+        });
+    </script>
 @endsection

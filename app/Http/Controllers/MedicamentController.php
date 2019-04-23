@@ -80,7 +80,13 @@ class MedicamentController extends Controller
             //dd($request->query('q')['term']);
             $search = $request->query('q')['term'];
             $data = DB::table('medicaments')
-                        ->select('medicaments.id', 'medicaments.nombre', 'medicaments.concentracion', 'medicaments.forma_farmaceutica_simp', 'laboratories.nombre as laboratory_name')
+                        ->select('medicaments.id',
+                            'medicaments.nombre',
+                            'medicaments.concentracion',
+                            'medicaments.presentacion',
+                            'medicaments.forma_farmaceutica_simp',
+                            'medicaments.active_principle_id',
+                            'laboratories.nombre as laboratory_name')
                         ->join('laboratories', 'laboratories.id', '=', 'medicaments.laboratory_id')
                         ->where('medicaments.nombre', 'LIKE', '%'.$search.'%')
                         ->get();
