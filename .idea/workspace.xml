@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e2467d84-d0c1-4139-8590-dda8f702eb6a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ExpenseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ExpenseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/InventoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/InventoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MedicamentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MedicamentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/expenses/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/expenses/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/inventories/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/inventories/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sales/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-    </list>
+    <list default="true" id="e2467d84-d0c1-4139-8590-dda8f702eb6a" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,8 +84,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/home.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="307" column="49" selection-start-line="307" selection-start-column="49" selection-end-line="307" selection-end-column="49" />
+            <state relative-caret-position="60">
+              <caret line="290" column="34" selection-start-line="290" selection-start-column="34" selection-end-line="290" selection-end-column="34" />
               <folding>
                 <element signature="e#4595#4616#0#HTML" expanded="true" />
                 <element signature="e#4701#4722#0#HTML" expanded="true" />
@@ -427,16 +416,15 @@
       <workItem from="1555806002299" duration="92000" />
       <workItem from="1555806282977" duration="3911000" />
       <workItem from="1555860492741" duration="25277000" />
-      <workItem from="1555972789129" duration="15224000" />
+      <workItem from="1555972789129" duration="15502000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90972000" />
+    <option name="totallyTimeSpent" value="91250000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1405" height="1338" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49567366" visible="true" weight="0.1724138" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -856,8 +844,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/home.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="307" column="49" selection-start-line="307" selection-start-column="49" selection-end-line="307" selection-end-column="49" />
+        <state relative-caret-position="60">
+          <caret line="290" column="34" selection-start-line="290" selection-start-column="34" selection-end-line="290" selection-end-column="34" />
           <folding>
             <element signature="e#4595#4616#0#HTML" expanded="true" />
             <element signature="e#4701#4722#0#HTML" expanded="true" />
