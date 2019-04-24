@@ -29578,3 +29578,12 @@ readers do not read off random characters that represent icons */
   z-index: 99999999999;
 }
 
+.sidebar,
+.brand-link {
+  background: #b23030;
+}
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
+  background: gray;
+}
+

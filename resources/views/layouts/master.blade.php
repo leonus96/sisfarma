@@ -40,7 +40,7 @@
         <a href="home" class="brand-link">
             <!--<img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">-->
-            <span class="brand-text font-weight-light">SisFarma</span>
+            <span class="brand-text font-weight-light">Farmacia Castillo</span>
         </a>
 
         <!-- Sidebar -->
@@ -48,11 +48,9 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <!--<img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">-->
-                    <i class="nav-icon fa fa-user"></i>
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">{{ Auth::user()->nombre }}</a>
+                    <a href="#" class="d-block">Usuario: {{ Auth::user()->nombre }}</a>
                 </div>
             </div>
 
@@ -63,7 +61,7 @@
                          with font-awesome or any other icon font library -->
                     <li class="nav-header">NEGOCIO</li>
                     <li class="nav-item has-treeview menu-open">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link {{ Request::routeIs('home') ? 'active' : '' }} {{ Request::routeIs('sale.*') ? 'active' : '' }}">
                             <i class="nav-icon fa fa-shopping-cart"></i>
                             <p>
                                 Ventas
@@ -72,13 +70,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{route('home')}}" class="nav-link active">
+                                <a href="{{route('home')}}" class="nav-link {{ Request::routeIs('home') ? 'active' : '' }}">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>Vender</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/sale/search/now" class="nav-link">
+                                <a href="/sale/search/now" class="nav-link {{ Request::routeIs('sale.search') ? 'active' : '' }}">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>Reporte diario</p>
                                 </a>
@@ -94,44 +92,44 @@
                     <!--- ADMIN-->
                     @if (Auth::user()->rol === 'admin' || Auth::user()->rol === 'tera')
                         <li class="nav-item">
-                            <a href="{{ route('inventory.index') }}" class="nav-link">
+                            <a href="{{ route('inventory.index') }}" class="nav-link {{ Request::routeIs('inventory.*') ? 'active' : '' }}">
                                 <i class="nav-icon fa fa-list"></i>
                                 <p>Inventario</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('expense.index') }}" class="nav-link">
+                            <a href="/expense/search/now" class="nav-link {{ Request::routeIs('expense.*') ? 'active' : '' }}">
                                 <i class="nav-icon fa fa-money-bill-alt"></i>
                                 <p>Gastos</p>
                             </a>
                         </li>
                         <li class="nav-header">ADMINISTRACIÓN</li>
                         <li class="nav-item">
-                            <a href="{{route('medicament.index')}}" class="nav-link">
+                            <a href="{{route('medicament.index')}}" class="nav-link {{ Request::routeIs('medicament.*') ? 'active' : '' }}">
                                 <i class="nav-icon fa fa-pills"></i>
                                 <p>Medicamentos</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('principle.index') }}" class="nav-link">
+                            <a href="{{ route('principle.index') }}" class="nav-link {{ Request::routeIs('principle.*') ? 'active' : '' }}">
                                 <i class="nav-icon fa fa-vials"></i>
                                 <p>Principios activos</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('laboratory.index') }}" class="nav-link">
+                            <a href="{{ route('laboratory.index') }}" class="nav-link {{ Request::routeIs('laboratory.*') ? 'active' : '' }}">
                                 <i class="nav-icon fa fa-flask"></i>
                                 <p>Laboratorios</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('customer.index')}}" class="nav-link">
+                            <a href="{{route('customer.index')}}" class="nav-link {{ Request::routeIs('customer.*') ? 'active' : '' }}">
                                 <i class="nav-icon fa fa-users"></i>
                                 <p>Clientes</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('user.index')}}" class="nav-link">
+                            <a href="{{route('user.index')}}" class="nav-link {{ Request::routeIs('user.*') ? 'active' : '' }}">
                                 <i class="nav-icon fa fa-user"></i>
                                 <p>Usuarios</p>
                             </a>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e2467d84-d0c1-4139-8590-dda8f702eb6a" name="Default Changelist" comment="" />
+    <list default="true" id="e2467d84-d0c1-4139-8590-dda8f702eb6a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,76 +280,12 @@
             <path>
               <item name="sisfarma" type="b2602c69:ProjectViewProjectNode" />
               <item name="sisfarma" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sisfarma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sisfarma" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sisfarma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sisfarma" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sisfarma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sisfarma" type="462c0819:PsiDirectoryNode" />
               <item name="database" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="sisfarma" type="b2602c69:ProjectViewProjectNode" />
               <item name="sisfarma" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sisfarma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sisfarma" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sisfarma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sisfarma" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="expenses" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sisfarma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sisfarma" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="inventories" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sisfarma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sisfarma" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="layouts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sisfarma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sisfarma" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="medicaments" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sisfarma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sisfarma" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="sales" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sisfarma" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sisfarma" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -367,13 +305,14 @@
     <property name="settings.editor.selected.configurable" value="preferences.intentionPowerPack" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views/expenses" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/expenses" />
       <recent name="$PROJECT_DIR$/resources/views/users" />
       <recent name="D:\Tera\proyectos\sisFarma\resources\views\customers" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/database" />
+      <recent name="$PROJECT_DIR$/resources/views/expenses" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -416,12 +355,12 @@
       <workItem from="1555806002299" duration="92000" />
       <workItem from="1555806282977" duration="3911000" />
       <workItem from="1555860492741" duration="25277000" />
-      <workItem from="1555972789129" duration="15502000" />
+      <workItem from="1555972789129" duration="16315000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91250000" />
+    <option name="totallyTimeSpent" value="92063000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1405" height="1338" extended-state="0" />
