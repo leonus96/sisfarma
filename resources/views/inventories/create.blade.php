@@ -43,7 +43,7 @@
                             </div>
                             </div>
                             <div class="row col-12">
-                                <div class="form-group col-6">
+                                <div class="form-group col-4">
                                     <label for="producto_stock">Stock</label>
                                     <input type="number" class="form-control" id="producto_stock" placeholder="Stock" name="stock">
                                     @if ($errors->has('stock'))
@@ -52,9 +52,18 @@
                                         </span>
                                     @endif
                                 </div>
-                                <div class="form-group col-6">
+                                <div class="form-group col-4">
                                     <label for="producto_precio_costo">Precio de costo</label>
-                                    <input type="number" step="0.1" class="form-control" id="producto_precio_costo" placeholder="Laboratorio" name="precio_costo">
+                                    <input type="number" step="0.01" class="form-control" id="producto_precio_costo" placeholder="Precio de costo" name="precio_costo">
+                                    @if ($errors->has('precio_costo'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('precio_costo') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="producto_precio_costo">Porcentaje de ganancia</label>
+                                    <input type="number" min="0" max="100" step="1" class="form-control" id="porcentaje" placeholder="% de ganancia" name="">
                                     @if ($errors->has('precio_costo'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('precio_costo') }}</strong>
@@ -63,16 +72,16 @@
                                 </div>
                             </div>
                             <div class="row col-12">
-                                <div class="form-group col-6">
+                                <div class="form-group col-4">
                                     <label for="producto_precio_publico">Precio público</label>
-                                    <input type="text" class="form-control" id="producto_precio_publico" placeholder="Laboratorio" name="precio_publico">
+                                    <input type="number" step="0.01" class="form-control" id="producto_precio_publico" placeholder="Precio de público" name="precio_publico">
                                     @if ($errors->has('precio_publico'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('precio_publico') }}</strong>
                                         </span>
                                     @endif
                                 </div>
-                                <div class="form-group col-6">
+                                <div class="form-group col-4">
                                     <label for="producto_precio_publico">Fecha de vencimiento</label>
                                     <input type="date" class="form-control" id="producto_precio_publico" placeholder="Laboratorio" name="fecha_vencimiento">
                                     @if ($errors->has('precio_publico'))
@@ -80,6 +89,10 @@
                                             <strong>{{ $errors->first('precio_publico') }}</strong>
                                         </span>
                                     @endif
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="producto_lote">Lote</label>
+                                    <input type="text" class="form-control" id="producto_lote" placeholder="Lote" name="lote">
                                 </div>
                             </div>
                             <div class="form-group col-12">
@@ -163,11 +176,19 @@
 
     $('#medicamentDescription').change(function () {
         $('#medicament_id').val($('#medicamentDescription').select2('data')[0].id);
-        //console.log($('#medicamentDescription').select2('data')[0].active_principle_id );
-        if($('#medicamentDescription').select2('data')[0].active_principle_id == undefined
-        || $('#medicamentDescription').select2('data')[0].active_principle_id == null ) {
+        console.log($('#medicamentDescription').select2('data')[0]);
+        if($('#medicamentDescription').select2('data')[0].active == undefined
+        || $('#medicamentDescription').select2('data')[0].active == null ) {
             $('#active_principle').prop('disabled', false);
         }
+    });
+
+    $('#porcentaje').change(function() {
+        var porcentaje = $('#porcentaje').val();
+        if(porcentaje > 100 || porcentaje < 0) {
+            return;
+        }
+        $('#producto_precio_publico').val($('#producto_precio_costo').val() + $('#producto_precio_costo').val() * porcentaje/100);
     });
 </script>
 @endsection

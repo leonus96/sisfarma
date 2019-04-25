@@ -10,6 +10,7 @@ class Inventory extends Model
         'stock',
         'precio_costo',
         'precio_publico',
+        'lote',
         'medicament_id',
         'pharmacy_id',
     ];

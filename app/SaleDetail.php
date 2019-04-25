@@ -10,5 +10,10 @@ class SaleDetail extends Model
         'cantidad',
         'inventory_id',
         'sale_id',
+        'created_at',
     ];
+
+    public function inventory() {
+        return $this->belongsTo(Inventory::class);
+    }
 }

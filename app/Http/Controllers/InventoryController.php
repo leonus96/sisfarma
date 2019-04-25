@@ -49,6 +49,7 @@ class InventoryController extends Controller
             'precio_publico' => 'required',
             'fecha_vencimiento' => 'sometimes',
             'active_principle' => 'sometimes',
+            'lote' => 'sometimes'
         ]);
 
         if($request->get('active_principle')) {
@@ -75,6 +76,7 @@ class InventoryController extends Controller
                 'precio_publico' => $request->get('precio_publico'),
                 'medicament_id' => $request->get('medicament_id'),
                 'fecha_vencimiento' => $request->get('fecha_vencimiento'),
+                'lote' => $request->get('lote'),
                 'pharmacy_id' => Pharmacy::ID,
             ]);
         }

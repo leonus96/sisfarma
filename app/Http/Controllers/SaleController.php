@@ -119,10 +119,10 @@ class SaleController extends Controller
     public function indexByDate($date) {
         $monto_total = 0;
         if($date != 'now') {
-            $sales = Sale::whereDate('created_at', $date)->get();
+            $sales = SaleDetail::with('inventory.medicament')->whereDate('created_at', $date)->get();
         } else {
             $date = Carbon::now()->toDateString();
-            $sales = Sale::whereDate('created_at', $date)->get();
+            $sales = SaleDetail::with('inventory.medicament')->whereDate('created_at', $date)->get();
         }
         foreach ($sales as $sale) {
             $monto_total = $monto_total + $sale->cantidad;

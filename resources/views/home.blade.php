@@ -221,13 +221,14 @@
             url: 'select-inventory/' + $('#selectInventory').select2('data')[0].id,
             success: function (data) {
                 if(data.length == 0){
+                    $('#medicamento_precio').val('');
+                    $('#stock_actual').val('');
                     $.ajax({
                         type: 'GET',
                         url: 'options-inventory/' + $('#selectInventory').select2('data')[0].active,
                         success: function (medicament) {
                             if(medicament.length != 0) {
                                 $('.options').empty();
-                                console.log(medicament[0]);
                                 for(var i = 0; i < medicament.length; i++) {
                                     $('.options').append(
                                         '<p>No hay stock</p>' +
@@ -247,6 +248,8 @@
                         }
                     });
                 } else {
+                    $('#medicamento_precio').val('');
+                    $('#stock_actual').val('');
                     inventory_id = data[0].id;
                     $('#medicamento_precio').val(data[0].precio_publico);
                     $('#stock_actual').val(data[0].stock);
