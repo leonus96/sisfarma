@@ -38,22 +38,22 @@
                                 <thead>
                                 <tr>
                                     <th>Código</th>
-                                    <th>Fecha</th>
-                                    <th>Cliente</th>
+                                    <th>Medicamento</th>
+                                    <th>Cantidad</th>
                                     <th>Monto</th>
+                                    <th>Lote</th>
+                                    <th>Fecha</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($sales as $sale)
                                     <tr>
                                         <td>{{ $sale->id }}</td>
-                                        <td>{{ $sale->fecha }}</td>
-                                        @if($sale->customer)
-                                            <td>{{ $sale->customer->nombre }}</td>
-                                        @else
-                                            <td> - </td>
-                                        @endif
+                                        <td>{{$sale->inventory->medicament->nombre}}</td>
                                         <td>{{$sale->cantidad}}</td>
+                                        <td>{{$sale->inventory->precio_publico}}</td>
+                                        <td></td>
+                                        <td>{{ $sale->created_at }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
