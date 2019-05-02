@@ -28,6 +28,7 @@ Route::get('sale/search/{date?}', 'SaleController@indexByDate')->name('sale.sear
 Route::resource('inventory', 'InventoryController');
 Route::get('select-inventory', 'InventoryController@autocomplete');
 Route::get('select-inventory/{id_medicament}', 'InventoryController@getInventoryByIdMedicament');
+Route::get('inventory/search/{option}', 'InventoryController@search')->name('inventory.search');
 Route::get('options-inventory/{id_active}', 'InventoryController@getInventoriesByPrincipleActive');
 Route::resource('medicament', 'MedicamentController');
 Route::get('select-medicament', 'MedicamentController@autocomplete');

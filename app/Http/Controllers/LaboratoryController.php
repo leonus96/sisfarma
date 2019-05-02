@@ -56,7 +56,7 @@ class LaboratoryController extends Controller
         $laboratory = Laboratory::find($id);
         $laboratory->nombre = $request->get('nombre');
         $laboratory->save();
-        return redirect('/laboratory')->with('succces', 'El laboratorio ha sido actualizado exitósamente.');
+        return redirect('/inventory')->with('succces', 'El laboratorio ha sido actualizado exitósamente.');
     }
 
     public function destroy($id)
