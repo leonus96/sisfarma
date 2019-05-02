@@ -20,6 +20,15 @@
                 margin: 0;
             }
 
+            .image {
+                /*display: box;
+                width: 100%;
+                height: auto;*/
+                background-image: url("../imagen.jpg");
+                background-size: cover;
+                
+            }
+
             .full-height {
                 height: 100vh;
             }
@@ -64,15 +73,16 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div class="flex-center position-ref full-height image" >
             <div class="top-right links">
                 <a href="{{ route('home') }}">Ingresar</a>
             </div>
 
             <div class="content">
-                <div class="title m-b-md">
+                <!--<div class="title m-b-md">
                     Farmacia Castillo
-                </div>
+                </div>-->
+                <!--<img src="imagen.jpg" class="image"  id="#image-bg">-->
             </div>
         </div>
     </body>

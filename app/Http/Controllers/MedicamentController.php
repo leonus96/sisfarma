@@ -28,8 +28,8 @@ class MedicamentController extends Controller
         $request->validate([
             'medicamento_nombre' => 'required|max:150',
             'medicamento_concentracion' => 'required',
-            'medicamento_forma_farmaceutica' => 'required',
-            'medicamento_presentacion' => 'required',
+            'medicamento_forma_farmaceutica' => 'sometimes',
+            'medicamento_presentacion' => 'sometimes',
             'selectLaboratory' => 'sometimes',
             'selectPrinciple' => 'sometimes',
         ]);
