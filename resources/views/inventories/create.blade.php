@@ -188,7 +188,8 @@
         if(porcentaje > 100 || porcentaje < 0) {
             return;
         }
-        $('#producto_precio_publico').val($('#producto_precio_costo').val() + $('#producto_precio_costo').val() * porcentaje/100);
+        console.log(porcentaje/100);
+        $('#producto_precio_publico').val(parseFloat($('#producto_precio_costo').val()) + parseFloat($('#producto_precio_costo').val()) * parseFloat(porcentaje/100));
     });
 </script>
 @endsection
