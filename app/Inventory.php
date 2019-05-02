@@ -13,6 +13,7 @@ class Inventory extends Model
         'lote',
         'medicament_id',
         'pharmacy_id',
+        'fecha_vencimiento',
     ];
 
     public function medicament() {

@@ -116,20 +116,30 @@ class InventoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $inventory = Inventory::find($id);
+        return view('inventories.edit', compact('inventory'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'stock' => 'required',
+            'precio_costo' => 'required',
+            'precio_publico' => 'required',
+            'fecha_vencimiento' => 'sometimes',
+            'lote' => 'sometimes'
+        ]);
+        $inventory = Inventory::find($id);
+        $inventory->stock = $request->get('stock');
+        $inventory->precio_costo = $request->get('precio_costo');
+        $inventory->precio_publico = $request->get('precio_publico');
+        $inventory->fecha_vencimiento = $request->get('fecha_vencimiento');
+        $inventory->lote = $request->get('lote');
+
+        $inventory->save();
+        return redirect('/inventory')->with('succces', 'El inventario se ha actualizado exitósamente.');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -139,7 +149,7 @@ class InventoryController extends Controller
      */
     public function destroy($id)
     {
-        $inventory = Inventory::find($id);
+        $inventory = Inventory::with('medicament')::find($id);
         $inventory->delete();
         return redirect('/inventory')->with('success', 'El producto se eliminó del inventario.');
     }
@@ -185,5 +195,13 @@ class InventoryController extends Controller
                         ->get();
         }
         return response()->json($data);
+    }
+
+    public function search($option) {
+        if($option == 'stock')
+            $inventories = Inventory::with('medicament')->orderBy('stock', 'ASC')->get();
+        else if ($option == 'date')
+            $inventories = Inventory::with('medicament')->orderBy('fecha_vencimiento', 'ASC')->get();
+        return view('inventories.index', compact('inventories'));
     }
 }
