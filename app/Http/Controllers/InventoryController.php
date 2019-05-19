@@ -20,7 +20,7 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $inventories = Inventory::with('medicament')->get();
+        $inventories = Inventory::with('medicament', 'medicament.laboratory')->get();
         return view('inventories.index', compact('inventories'));
     }
 

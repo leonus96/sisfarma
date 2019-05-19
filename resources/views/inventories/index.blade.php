@@ -56,7 +56,7 @@
                                 @foreach($inventories as $inventory)
                                     <tr>
                                         <td>{{ $inventory->medicament->id}}</td>
-                                        <td>{{ $inventory->medicament->nombre . ' ' . $inventory->medicament->concentracion . ' ' . $inventory->medicament->forma_farmaceutica_simp}}</td>
+                                        <td>{{ $inventory->medicament->nombre . ' ' . $inventory->medicament->concentracion . ' ' . $inventory->medicament->forma_farmaceutica_simp . ' - ' . $inventory->medicament->laboratory->nombre}}</td>
                                         <td>{{ $inventory->stock }}</td>
                                         <td>{{ $inventory->lote }}</td>
                                         <td>{{ $inventory->fecha_vencimiento }}</td>
