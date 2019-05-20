@@ -70,17 +70,19 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{route('home')}}" class="nav-link {{ Request::routeIs('home') ? 'active' : '' }}">
+                                <a href="{{route('sale.now')}}" class="nav-link {{ Request::routeIs('sale.now') ? 'active' : '' }} {{ Request::routeIs('home') ? 'active' : '' }}">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>Vender</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/sale/search/now" class="nav-link {{ Request::routeIs('sale.search') ? 'active' : '' }}">
-                                    <i class="fa fa-circle-o nav-icon"></i>
-                                    <p>Reporte diario</p>
-                                </a>
-                            </li>
+                            @if (Auth::user()->rol === 'admin' || Auth::user()->rol === 'tera')
+                                <li class="nav-item">
+                                    <a href="/sale/search/now" class="nav-link {{ Request::routeIs('sale.search') ? 'active' : '' }}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>Reporte diario</p>
+                                    </a>
+                                </li>
+                            @endif
                             <!--<li class="nav-item">
                                 <a href="{{route('sale.index')}}" class="nav-link">
                                     <i class="fa fa-circle-o nav-icon"></i>

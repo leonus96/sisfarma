@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-5">
+            <!--<div class="col-5">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Cliente</h3>
@@ -75,8 +75,8 @@
                         </form>
                     </div>
                 </div>
-            </div>
-            <div class="col-7">
+            </div>-->
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Pedido</h3>
@@ -189,10 +189,11 @@
             });
         });
     });
+
     $('.selectInventory').select2({
         placeholder: 'Busca medicamento',
         ajax: {
-            url: '/select-medicament/',
+            url: '/select-inventory/',
             datatype: 'json',
             delay: 250,
             data: function (term) {
@@ -201,12 +202,23 @@
                 };
             },
             processResults: function (data) {
+                if(data.length == 0) {
+                    return {
+                        results: [
+                            {
+                                text: 'No se encontraron resultados. 🥺',
+                            }
+                        ]
+                    }
+                }
                 return{
-                    results: $.map(data, function (medicament) {
+                    results: $.map(data, function (inventory) {
                         return {
-                            text: medicament.nombre + ' ' + medicament.concentracion + ' ' + medicament.forma_farmaceutica_simp + ' '+ medicament.presentacion + ' ' + medicament.laboratory_name,
-                            id: medicament.id,
-                            active: medicament.active_principle_id,
+                            text: inventory.nombre + ' ' + inventory.concentracion + ' ' + inventory.forma_farmaceutica_simp + ' - ' + inventory.laboratory_name,
+                            id: inventory.id,
+                            active: inventory.active_principle_id,
+                            stock: inventory.stock,
+                            precio: inventory.precio,
                         }
                     })
                 };
@@ -216,47 +228,36 @@
     });
 
     $('#selectInventory').change(function () {
+        const data = $('#selectInventory').select2('data')[0];
+        $('#medicamento_precio').val('');
+        $('#stock_actual').val('');
+        inventory_id = data.id;
+        $('#medicamento_precio').val(data.precio);
+        $('#stock_actual').val(data.stock);
         $.ajax({
             type: 'GET',
-            url: 'select-inventory/' + $('#selectInventory').select2('data')[0].id,
-            success: function (data) {
-                if(data.length == 0){
-                    $('#medicamento_precio').val('');
-                    $('#stock_actual').val('');
-                    $.ajax({
-                        type: 'GET',
-                        url: 'options-inventory/' + $('#selectInventory').select2('data')[0].active,
-                        success: function (medicament) {
-                            if(medicament.length != 0) {
-                                $('.options').empty();
-                                for(var i = 0; i < medicament.length; i++) {
-                                    $('.options').append(
-                                        '<p>No hay stock</p>' +
-                                        '<table class="table table-bordered table-hover"><tr><td>Opciones: </td></tr>' + '<tr>' +
-                                        '<td>' + medicament[i].nombre +
-                                        ' ' + medicament[i].concentracion +
-                                        ' ' + medicament[i].forma_farmaceutica_simp +
-                                        ' ' + medicament[i].presentacion +
-                                        ' ' + medicament[i].laboratory_name +
-                                        '</td>' +
-                                        '</tr></table>');
-                                }
-                            } else {
-                                $('.options').empty();
-                                $('.options').append("<p id='option_message'>No existen recomendaciones</p>");
-                            }
-                        }
-                    });
+            url: 'options-inventory/' + data.active,
+            success: function (medicament) {
+                if(medicament.length != 0) {
+                    $('.options').empty();
+                    for(var i = 0; i < medicament.length; i++) {
+                        $('.options').append(
+                            '<p>No hay stock</p>' +
+                            '<table class="table table-bordered table-hover"><tr><td>Opciones: </td></tr>' + '<tr>' +
+                            '<td>' + medicament[i].nombre +
+                            ' ' + medicament[i].concentracion +
+                            ' ' + medicament[i].forma_farmaceutica_simp +
+                            ' ' + medicament[i].presentacion +
+                            ' ' + medicament[i].laboratory_name +
+                            '</td>' +
+                            '</tr></table>');
+                    }
                 } else {
-                    $('#medicamento_precio').val('');
-                    $('#stock_actual').val('');
-                    inventory_id = data[0].id;
-                    $('#medicamento_precio').val(data[0].precio_publico);
-                    $('#stock_actual').val(data[0].stock);
+                    $('.options').empty();
+                    $('.options').append("<p id='option_message'>No existen recomendaciones</p>");
                 }
-
             }
-        })
+        });
         /*$('#medicamento_precio').val($('#selectInventory').select2('data')[0].precio_publico);
         $('#stock_actual').val($('#selectInventory').select2('data')[0].stock);*/
     });

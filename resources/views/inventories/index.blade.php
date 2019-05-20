@@ -38,6 +38,7 @@
                             <i class="fa fa-calendar"></i> Por F.V.
                         </a>
                     </div>
+
                     <div class="card-body">
                         <table id="pedido" class="table table-bordered table-hover">
                             <thead>
@@ -57,9 +58,25 @@
                                     <tr>
                                         <td>{{ $inventory->medicament->id}}</td>
                                         <td>{{ $inventory->medicament->nombre . ' ' . $inventory->medicament->concentracion . ' ' . $inventory->medicament->forma_farmaceutica_simp . ' - ' . $inventory->medicament->laboratory->nombre}}</td>
-                                        <td>{{ $inventory->stock }}</td>
+                                        @if($inventory->stock == 1)
+                                            <td class="bg-warning">{{ $inventory->stock }}</td>
+                                        @else
+                                            @if ($inventory->stock == 0)
+                                                <td class="bg-danger">{{ $inventory->stock }}</td>
+                                            @else
+                                                <td>{{ $inventory->stock }}</td>
+                                            @endif
+                                        @endif
                                         <td>{{ $inventory->lote }}</td>
-                                        <td>{{ $inventory->fecha_vencimiento }}</td>
+                                        @if(\Carbon\Carbon::parse($inventory->fecha_vencimiento)->isPast())
+                                            <td class="bg-danger">{{ $inventory->fecha_vencimiento }}</td>
+                                        @else
+                                            @if(\Carbon\Carbon::parse($inventory->fecha_vencimiento)->diffInDays() <= 60)
+                                                <td class="bg-warning">{{ $inventory->fecha_vencimiento }}</td>
+                                            @else
+                                                <td>{{ $inventory->fecha_vencimiento }}</td>
+                                            @endif
+                                        @endif
                                         <td>{{ $inventory->precio_costo }}</td>
                                         <td>{{ $inventory->precio_publico }}</td>
                                         <td>

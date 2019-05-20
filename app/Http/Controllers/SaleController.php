@@ -17,8 +17,18 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $sales = Sale::with('customer')->get();
-        return view('sales.index', compact('sales'));
+        return redirect('/home');
+    }
+
+    public function indexNow()
+    {
+        $monto_total = 0;
+        $sales = SaleDetail::with('inventory', 'inventory.medicament')->whereDate('created_at', Carbon::today())->get();
+        foreach ($sales as $sale) {
+            $monto_total = $monto_total + $sale->inventory->precio_publico * $sale->cantidad;
+        }
+        return view('sales.day_sales', compact('sales', 'monto_total'));
+
     }
 
     /**
@@ -64,7 +74,7 @@ class SaleController extends Controller
             $inventory->save();
             $det->save();
         }
-        return redirect('/home')->with('success', 'Venta registrada!');
+        return redirect('/sale/now')->with('success', 'Venta registrada!');
 
     }
 
@@ -111,10 +121,11 @@ class SaleController extends Controller
      */
     public function destroy($id)
     {
-        $sale = Sale::find($id);
+        $sale = SaleDetail::find($id);
         $sale->delete();
-        return redirect('/sales/search/now')->with('success', 'La venta se anuló.');
+        return redirect('/sale/now')->with('success', 'La venta se anuló.');
     }
+
 
     public function indexByDate($date) {
         $monto_total = 0;

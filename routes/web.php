@@ -23,6 +23,7 @@ Route::resource('laboratory', 'LaboratoryController');
 Route::get('select-laboratory', 'LaboratoryController@autocomplete');
 Route::resource('customer', 'CustomerController');
 Route::get('select-customer', 'CustomerController@autocomplete');
+Route::get('sale/now', 'SaleController@indexNow')->name('sale.now');
 Route::resource('sale', 'SaleController');
 Route::get('sale/search/{date?}', 'SaleController@indexByDate')->name('sale.search');
 Route::resource('inventory', 'InventoryController');

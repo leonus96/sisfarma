@@ -190,7 +190,7 @@ class InventoryController extends Controller
             $data = DB::table('inventories')
                         ->join('medicaments', 'medicaments.id', '=', 'inventories.medicament_id')
                         ->join('laboratories', 'laboratories.id', '=', 'medicaments.laboratory_id')
-                        ->select('inventories.id', 'medicaments.nombre', 'medicaments.concentracion', 'medicaments.forma_farmaceutica_simp', 'medicaments.presentacion', 'laboratories.nombre as laboratoryName', 'inventories.stock', 'inventories.precio_publico')
+                        ->select('inventories.id', 'medicaments.nombre', 'medicaments.concentracion', 'medicaments.forma_farmaceutica_simp', 'medicaments.presentacion', 'laboratories.nombre as laboratory_name', 'inventories.stock as stock', 'inventories.precio_publico as precio')
                         ->where('medicaments.nombre', 'LIKE', '%'.$search.'%')
                         ->get();
         }
